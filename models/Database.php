@@ -4,9 +4,9 @@ class Database
 {
     private $conn = null;
 
-    public function __construct($database, $username = "root", $password = "root",  $servername = "localhost",)
+    public function __construct($database, $username = "root", $password = "root",  $servername = "localhost")
     {
-        $dsn = "$database:host=$servername;dbname=$database;charset=UTF8";
+        $dsn = "mysql:host=$servername;dbname=$database;charset=UTF8";
 
         try {
             $this->conn = new PDO($dsn, $username, $password);
