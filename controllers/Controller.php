@@ -15,7 +15,7 @@ class Controller{
     }
 
     private function router(){
-        $page = $_GET['page'] ?? "";
+        $page = htmlspecialchars($_GET['page']) ?? "";
 
         switch($page){
             case "details":
@@ -64,7 +64,7 @@ class Controller{
     }
 
     private function showProducts(){
-        $category = $_GET['category'] ?? "Välkommen";
+        $category = htmlspecialchars($_GET['category']) ?? "Välkommen";
         $this->getHeader($category);
         $this->getFooter();
     }
