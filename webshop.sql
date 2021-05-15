@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 11, 2021 at 11:38 AM
+-- Generation Time: May 11, 2021 at 12:16 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -86,7 +86,8 @@ CREATE TABLE `users` (
   `last_name` varchar(50) COLLATE utf8mb4_swedish_ci NOT NULL,
   `email` varchar(50) COLLATE utf8mb4_swedish_ci NOT NULL,
   `tel` varchar(50) COLLATE utf8mb4_swedish_ci NOT NULL,
-  `adress` varchar(50) COLLATE utf8mb4_swedish_ci NOT NULL
+  `adress` varchar(50) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `password` varchar(100) COLLATE utf8mb4_swedish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 --
