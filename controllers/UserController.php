@@ -53,7 +53,14 @@ class UserController{
         if(empty(trim($_POST['email']))){
             array_push($errors, "E-mail saknas");
         }else{
-            $userDetails[':email'] = $this->sanatize($_POST['email']);
+            
+            $email = $this->sanatize($_POST['email']);
+
+            if($this->model->checkEmailAvailability($email)!==true){
+                array_push($errors, "E-mail redan registrerad");
+            }else{
+                $userDetails[':email'] = $email;
+            }
         }
     
         if(empty(trim($_POST['tel']))){
@@ -71,7 +78,8 @@ class UserController{
         if(empty(trim($_POST['password']))){
             array_push($errors, "Lösenord saknas");
         }else{
-            $userDetails[':password'] = $this->sanatize($_POST['password']);
+            $password = $this->sanatize($_POST['password']);
+            $userDetails[':password'] = password_hash($password, PASSWORD_DEFAULT);
         }
     
         if(count($errors)>0){

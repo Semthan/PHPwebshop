@@ -15,4 +15,14 @@ class UserModel{
             
         $this->db->insert($stmt, $userDetails);
     }
+
+    public function checkEmailAvailability($params){
+        $stmt = "SELECT * FROM users WHERE email = :email";
+        $email = [':email'=>$params];
+
+        $response = $this->db->select($stmt, $email);
+
+        if(!$response)
+            return true;
+    }
 }

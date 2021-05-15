@@ -87,7 +87,7 @@ CREATE TABLE `users` (
   `email` varchar(50) COLLATE utf8mb4_swedish_ci NOT NULL,
   `tel` varchar(50) COLLATE utf8mb4_swedish_ci NOT NULL,
   `adress` varchar(50) COLLATE utf8mb4_swedish_ci NOT NULL,
-  `password` varchar(100) COLLATE utf8mb4_swedish_ci NOT NULL
+  `password` varchar(255) COLLATE utf8mb4_swedish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 --
