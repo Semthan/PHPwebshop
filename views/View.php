@@ -31,8 +31,4 @@ class View
     {
         include_once("views/include/profile.php");
     }
-
-    public function viewRegisterUser(){
-        include_once("views/include/register.php");
-    }
 }

@@ -1,6 +1,6 @@
 <?php
 
-class Register{
+class UserModel{
     private $db;
 
     public function __construct($database){
