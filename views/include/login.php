@@ -1,15 +1,11 @@
-<?php
-
-$username = "";
-$password = "";
-$username_error = "";
-$password_error = "";
-
-if($_SERVER["REQUEST_METHOD"]=="POST"){
-    if(empty(trim($_POST["username"]))){
-        $username_err = "Enter a username"
-    }else{
-        $sql = "SELECT id FROM users WHERE username = ?";
-        if($stmt = mysqli_prepare($link, $sql))
-    }
-}
+<form action="#" method="POST">   
+    <div>
+        <input type="text" name="email" placeholder="E-mail">
+    </div>
+    <div>
+        <input type="text" name="password" placeholder="Password">
+    </div>
+    <div>
+        <input type="submit" value="Login">
+    </div>
+</form>

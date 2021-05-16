@@ -10,3 +10,11 @@
 
 <body class="container">
     <h1 class="text-center"><?php echo $title; ?></h1>
+    <?php
+        if(isset($_SESSION['id'])){
+            echo "<p>Logged in as $_SESSION[name]</p>";
+            echo "<a href='?page=logout'>Log out</a>";
+        }else{
+            echo "<a href='?page=login'>Log in</a>";
+        }
+    ?>

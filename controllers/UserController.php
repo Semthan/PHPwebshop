@@ -21,17 +21,42 @@ class UserController{
             case "login":
                 $this->login();
                 break;
+            case "logout":
+                $this->logout();
+                break;
         }
     }
 
     private function login(){
+        $this->view->viewLogin();
+        if($_SERVER['REQUEST_METHOD']==='POST')
+            $this->processLoginForm();
+    }
 
+    private function logout(){
+        session_start();
+        $_SESSION = [];
+        session_destroy();
+        header("location: index.php");
     }
     
     private function registerUser(){
         $this->view->viewRegisterUser();
         if($_SERVER['REQUEST_METHOD']==='POST')
             $this->processRegistrationForm();
+    }
+
+    private function processLoginForm(){
+        $errors = ["Invalid e-mail or password"];
+
+        $emailInput = $this->sanatize($_POST['email']);
+        $passwordInput = $this->sanatize($_POST['password']);
+
+        if(empty($emailInput) || empty($passwordInput)){
+            $this->view->printMessage($errors);
+        }else{
+            $this->model->login($emailInput, $passwordInput);
+        }
     }
 
     private function processRegistrationForm(){
@@ -52,10 +77,8 @@ class UserController{
     
         if(empty(trim($_POST['email']))){
             array_push($errors, "E-mail saknas");
-        }else{
-            
+        }else{            
             $email = $this->sanatize($_POST['email']);
-
             if($this->model->checkEmailAvailability($email)!==true){
                 array_push($errors, "E-mail redan registrerad");
             }else{
