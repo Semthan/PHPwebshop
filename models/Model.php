@@ -8,6 +8,10 @@ class Model{
     }
 
     public function fetchAllProducts(){
+        $categories = $this->db->select("SELECT * FROM categories");
+        return $categories;
+    }
+    public function fetchAllCategories(){
         $products = $this->db->select("SELECT * FROM products");
         return $products;
     }

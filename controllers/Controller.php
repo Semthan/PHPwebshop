@@ -30,8 +30,10 @@ class Controller{
             case "admin":
                 $this->admin();
                 break;
-            default:
+            case "products";
                 $this->showProducts();
+            default:
+                $this->landingPage();
         }
     }
 
@@ -62,10 +64,18 @@ class Controller{
         $this->getHeader("Admin");
         $this->getFooter();
     }
-
+    
     private function showProducts(){
         $category = $_GET['category'] ?? "Välkommen";
         $this->getHeader($category);
+        $this->getFooter();
+    }
+
+    private function landingPage(){
+        
+        $this->getHeader("Logo");
+        $products = $this->model->fetchAllProducts();
+        $this->view->viewLandingPage($products);
         $this->getFooter();
     }
 }

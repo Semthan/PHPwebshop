@@ -11,6 +11,11 @@ class View
     {
         include_once("views/include/footer.php");
     }
+    public function viewLandingPage($products)
+    {
+        include_once("views/include/landingPage.php");
+        
+    }
 
     public function viewDetailsPage()
     {
