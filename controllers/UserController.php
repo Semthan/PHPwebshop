@@ -46,51 +46,46 @@ class UserController{
         $errors = [];
         $userDetails = [];
 
-        if(empty(trim($_POST['first_name']))){
+        $first_name = $this->sanatize($_POST['first_name']);
+        $last_name = $this->sanatize($_POST['last_name']);
+        $email = $this->sanatize($_POST['email']);
+        $tel = $this->sanatize($_POST['tel']);
+        $adress = $this->sanatize($_POST['adress']);
+        $password = $this->sanatize($_POST['password']);
+
+        if(!$first_name)
             array_push($errors, "Förnamn saknas");
-        }else{
-            $userDetails[':first_name'] = $this->sanatize($_POST['first_name']);
-        }
-    
-        if(empty(trim($_POST['last_name']))){
+
+        if(!$last_name)
             array_push($errors, "Efternamn saknas");
-        }else{
-            $userDetails[':last_name'] = $this->sanatize($_POST['last_name']);
-        }
-    
-        if(empty(trim($_POST['email']))){
+        
+        if(!$email){
             array_push($errors, "E-mail saknas");
-        }else{            
-            $email = $this->sanatize($_POST['email']);
-            if($this->model->checkEmailAvailability($email)!==true){
-                array_push($errors, "E-mail redan registrerad");
-            }else{
-                $userDetails[':email'] = $email;
-            }
+        }elseif($this->model->checkEmailAvailability($email)!==true){ 
+            array_push($errors, "E-mail redan registrerad");
         }
-    
-        if(empty(trim($_POST['tel']))){
+
+        if(!$tel)
             array_push($errors, "Telefonnummer saknas");
-        }else{
-            $userDetails[':tel'] = $this->sanatize($_POST['tel']);
-        }
-    
-        if(empty(trim($_POST['adress']))){
+
+        if(!$adress)
             array_push($errors, "Adress saknas");
-        }else{
-            $userDetails[':adress'] = $this->sanatize($_POST['adress']);
-        }
-    
-        if(empty(trim($_POST['password']))){
+        
+        if(!$password)
             array_push($errors, "Lösenord saknas");
-        }else{
-            $password = $this->sanatize($_POST['password']);
-            $userDetails[':password'] = password_hash($password, PASSWORD_DEFAULT);
-        }
+
     
         if(count($errors)>0){
             $this->view->printMessage($errors);
         }else{
+            $userDetails = [
+                ":first_name" => $first_name,
+                ":last_name" => $last_name,
+                ":email" => $email,
+                ":tel" => $tel,
+                ":adress" => $adress,
+                ":password" => password_hash($password, PASSWORD_DEFAULT)
+            ];
             $this->model->registerNewUser($userDetails);
         }
     }
