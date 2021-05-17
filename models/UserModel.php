@@ -43,9 +43,9 @@ class UserModel{
         $stmt = "SELECT * FROM users WHERE email = :email";
         $email = [':email'=>$params];
 
-        $response = $this->db->select($stmt, $email);
+        $unAvailable = $this->db->select($stmt, $email);
 
-        if(!$response)
-            return true;
+        if($unAvailable)
+            return false;
     }
 }

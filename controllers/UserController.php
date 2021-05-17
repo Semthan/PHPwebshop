@@ -63,7 +63,7 @@ class UserController{
         
         if(!$email){
             array_push($errors, "E-mail saknas");
-        }elseif($this->model->checkEmailAvailability($email)!==true){ 
+        }elseif($this->model->checkEmailAvailability($email)===false){ 
             array_push($errors, "E-mail redan registrerad");
         }
 
@@ -89,6 +89,8 @@ class UserController{
                 ":password" => password_hash($password, PASSWORD_DEFAULT)
             ];
             $this->model->registerNewUser($userDetails);
+            // loggar in och routar till index direkt efter ok registrering
+            $this->login();
         }
     }
 
