@@ -40,7 +40,7 @@ class UserController{
         ];
         $this->view->viewUpdateUser($userData);
         if($_SERVER['REQUEST_METHOD']==='POST')
-            $this->processUpdateUserForm();
+            $this->processUpdateUserForm($currentDetails);
     }
 
     private function processLoginForm(){
@@ -100,7 +100,7 @@ class UserController{
                 ":email" => $email,
                 ":tel" => $tel,
                 ":adress" => $adress,
-                ":password" => password_hash($password, PASSWORD_DEFAULT)
+                ":password" => password_hash($password, PASSWORD_DEFAULT),
             ];
             $this->model->registerNewUser($userDetails);
             // loggar in och routar till index direkt efter ok registrering
@@ -108,7 +108,7 @@ class UserController{
         }
     }
 
-    private function processUpdateUserForm(){
+    private function processUpdateUserForm($currentDetails){
         $errors = [];
         $userDetails = [];
 
@@ -117,30 +117,31 @@ class UserController{
         $email = $this->sanatize($_POST['email']);
         $tel = $this->sanatize($_POST['tel']);
         $adress = $this->sanatize($_POST['adress']);
-        $password = $this->sanatize($_POST['password']);
+
+        $passwordInput = $this->sanatize($_POST['password']);
+        
+        $password = $passwordInput ? password_hash($passwordInput, PASSWORD_DEFAULT) 
+                                   : $currentDetails[0]['password'];
 
         if(!$first_name)
-            array_push($errors, "Förnamn saknas");
+            $first_name = $currentDetails[0]['first_name'];
 
         if(!$last_name)
-            array_push($errors, "Efternamn saknas");
+            $last_name = $currentDetails[0]['last_name'];
+
 
         if(!$email){
-            array_push($errors, "E-mail saknas");
+            $email = $currentDetails[0]['email'];
         }elseif($this->model->checkEmailAvailability($email)===false){ 
             array_push($errors, "E-mail redan registrerad");
         }
 
         if(!$tel)
-            array_push($errors, "Telefonnummer saknas");
+            $tel = $currentDetails[0]['tel'];
 
         if(!$adress)
-            array_push($errors, "Adress saknas");
-        
-        if(!$password)
-            array_push($errors, "Lösenord saknas");
-
-    
+            $adress = $currentDetails[0]['adress'];
+                
         if(count($errors)>0){
             $this->view->printMessage($errors);
         }else{
@@ -150,11 +151,10 @@ class UserController{
                 ":email" => $email,
                 ":tel" => $tel,
                 ":adress" => $adress,
-                ":password" => password_hash($password, PASSWORD_DEFAULT),
+                ":password" => $password,
                 ":id" => $_SESSION['id']
             ];
             $this->model->updateUserInDb($userDetails);
-            $this->login();
         }
     }
 

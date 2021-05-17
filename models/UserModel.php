@@ -60,7 +60,7 @@ class UserModel{
 
         $unAvailable = $this->db->select($stmt, $email);
 
-        if($unAvailable)
+        if($unAvailable && $unAvailable[0]['user_id']!==$_SESSION['id'])
             return false;
     }
 
