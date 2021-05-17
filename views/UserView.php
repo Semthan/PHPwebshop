@@ -1,28 +1,37 @@
 <?php
 
-class UserView{    
+class UserView
+{
 
-    public function viewHome(){
+    public function viewHome()
+    {
         include_once("views/include/header.php");
         include_once("views/include/footer.php");
     }
 
-    public function viewRegisterUser(){
+    public function viewRegisterUser()
+    {
+        include_once("views/include/header.php");
         include_once("views/include/register.php");
+        include_once("views/include/footer.php");
     }
 
-    public function viewLogin(){
+    public function viewLogin()
+    {
+        include_once("views/include/header.php");
         include_once("views/include/login.php");
+        include_once("views/include/footer.php");
     }
 
-    public function printMessage($errors){
+    public function printMessage($errors)
+    {
 
         $template = "<ul>";
-        foreach($errors as $error){
+        foreach ($errors as $error) {
             $template .= "<li>$error</li>";
         }
         $template .= "</ul>";
-        
+
         echo $template;
     }
 }

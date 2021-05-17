@@ -1,6 +1,8 @@
-</div>
+</div><!-- container -->
 <hr>
-<p class="text-center">Header</p>
+<Footer>
+    <p class="text-center">Footer</p>
+</Footer>
 </body>
 
 </html>
