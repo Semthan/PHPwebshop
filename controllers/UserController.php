@@ -29,6 +29,20 @@ class UserController{
             $this->processRegistrationForm();
     }
 
+    public function updateUser(){
+        $currentDetails = $this->model->getCurrentUser($_SESSION['id']);
+        $userData = [
+            "first_name" => $currentDetails[0]['first_name'],
+            "last_name" => $currentDetails[0]['last_name'],
+            "email" => $currentDetails[0]['email'],
+            "tel" => $currentDetails[0]['tel'],
+            "adress" => $currentDetails[0]['adress'],
+        ];
+        $this->view->viewUpdateUser($userData);
+        if($_SERVER['REQUEST_METHOD']==='POST')
+            $this->processUpdateUserForm();
+    }
+
     private function processLoginForm(){
         $error = [0 => "Invalid e-mail or password"];
 
@@ -90,6 +104,56 @@ class UserController{
             ];
             $this->model->registerNewUser($userDetails);
             // loggar in och routar till index direkt efter ok registrering
+            $this->login();
+        }
+    }
+
+    private function processUpdateUserForm(){
+        $errors = [];
+        $userDetails = [];
+
+        $first_name = $this->sanatize($_POST['first_name']);
+        $last_name = $this->sanatize($_POST['last_name']);
+        $email = $this->sanatize($_POST['email']);
+        $tel = $this->sanatize($_POST['tel']);
+        $adress = $this->sanatize($_POST['adress']);
+        $password = $this->sanatize($_POST['password']);
+
+        if(!$first_name)
+            array_push($errors, "Förnamn saknas");
+
+        if(!$last_name)
+            array_push($errors, "Efternamn saknas");
+
+        if(!$email){
+            array_push($errors, "E-mail saknas");
+        }elseif($this->model->checkEmailAvailability($email)===false){ 
+            array_push($errors, "E-mail redan registrerad");
+        }
+
+        if(!$tel)
+            array_push($errors, "Telefonnummer saknas");
+
+        if(!$adress)
+            array_push($errors, "Adress saknas");
+        
+        if(!$password)
+            array_push($errors, "Lösenord saknas");
+
+    
+        if(count($errors)>0){
+            $this->view->printMessage($errors);
+        }else{
+            $userDetails = [
+                ":first_name" => $first_name,
+                ":last_name" => $last_name,
+                ":email" => $email,
+                ":tel" => $tel,
+                ":adress" => $adress,
+                ":password" => password_hash($password, PASSWORD_DEFAULT),
+                ":id" => $_SESSION['id']
+            ];
+            $this->model->updateUserInDb($userDetails);
             $this->login();
         }
     }

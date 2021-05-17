@@ -11,6 +11,10 @@ class UserView{
         include_once("views/include/register.php");
     }
 
+    public function viewUpdateUser($userData){
+        include_once("views/include/profile.php");
+    }
+
     public function viewLogin(){
         include_once("views/include/login.php");
     }
