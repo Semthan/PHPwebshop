@@ -13,7 +13,7 @@ class UserModel{
         $user = $this->db->select($stmt, [':email' => $email]);
 
         if(!$user){
-            return "Invalid e-mail or password";
+            return false;
         }else{
             $user = $user[0];
             if(password_verify($password, $user['password'])){
@@ -25,7 +25,7 @@ class UserModel{
 
                 header("location: index.php");
             }else{
-                return "Invalid e-mail or password";
+                return false;
             }
         }
     }
@@ -39,13 +39,36 @@ class UserModel{
         $this->db->insert($stmt, $userDetails);
     }
 
+    public function updateUserInDb($params){
+        $stmt = "UPDATE users SET 
+                first_name = :first_name, 
+                last_name = :last_name, 
+                email = :email,
+                tel = :tel,
+                adress = :adress,
+                password = :password
+                WHERE users.user_id = :id";
+
+        $userDetails = $params;
+
+        $this->db->update($stmt, $userDetails);
+    }
+
     public function checkEmailAvailability($params){
         $stmt = "SELECT * FROM users WHERE email = :email";
         $email = [':email'=>$params];
 
-        $response = $this->db->select($stmt, $email);
+        $unAvailable = $this->db->select($stmt, $email);
 
-        if(!$response)
-            return true;
+        if($unAvailable)
+            return false;
+    }
+
+    public function getCurrentUser($params){
+        $stmt = "SELECT * FROM users WHERE user_id = :id";
+
+        $id = [':id' => $params];
+
+        return $this->db->select($stmt, $id);
     }
 }
