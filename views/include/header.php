@@ -13,31 +13,39 @@
     <div class="row">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
-                <a class="navbar-brand" href="#">
-                    <h1>Logo</h1>
+                <a class="navbar-brand" href="index.php">
+                    <h1>Fakeia</h1>
                 </a>
                 <div class="collapse navbar-collapse nav-font">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
-                            <a class="nav-link" href="#">
-                                <h3>Login</h3>
-                            </a>
-                        </li>
-                        <li class="nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
-                            <a class="nav-link" href="?page=register">
-                                <h3>Register</h3>
-                            </a>
-                        </li>
+
+                        <?php
+                        if (isset($_SESSION['id'])) {
+                            echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
+                                    <a class='nav-link' href='#'>
+                                        <h3>$_SESSION[name]</h3>
+                                    </a>
+                                  </li>";
+                            echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
+                                    <a class='nav-link' href='?page=logout'>
+                                        <h3>Log out</h3>
+                                    </a>
+                                  </li>";
+                        } else {
+                            echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
+                                        <a class='nav-link' href='?page=login'>
+                                        <h3>Login</h3>
+                                        </a>
+                                  </li>";
+                            echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
+                                        <a class='nav-link' href='?page=register'>
+                                            <h3>Register</h3>
+                                        </a>
+                                  </li>";
+                        }
+                        ?>
                     </ul>
                 </div>
             </div>
         </nav>
     </div>
-    <?php
-    if (isset($_SESSION['id'])) {
-        echo "<p>Logged in as $_SESSION[name]</p>";
-        echo "<a href='?page=logout'>Log out</a>";
-    } else {
-        echo "<a href='?page=login'>Log in</a>";
-    }
-    ?>
