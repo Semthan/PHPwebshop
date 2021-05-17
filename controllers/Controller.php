@@ -8,28 +8,6 @@ class Controller{
     public function __construct($model, $view){
         $this->model = $model;
         $this->view = $view;
-        $this->router();
-    }
-
-    private function router(){
-        $page = $_GET['page'] ?? "";
-
-        switch($page){
-            case "details":
-                $this->details();
-                break;
-            case "checkout":
-                $this->checkout();
-                break;
-            case "profile":
-                $this->showProfile();
-                break;
-            case "admin":
-                $this->admin();
-                break;
-            default:
-                $this->showProducts();
-        }
     }
 
     private function getHeader($title){
@@ -40,27 +18,27 @@ class Controller{
         $this->view->viewFooter();
     }
 
-    private function details(){
+    public function details(){
         $this->getHeader("//placeholder---varans titel//");
         $this->getFooter();
     }
     
-    private function checkout(){
+    public function checkout(){
         $this->getHeader("Kassa");
         $this->getFooter();
     }
 
-    private function showProfile(){
+    public function showProfile(){
         $this->getHeader("//placeholder---användarens namn//");
         $this->getFooter();
     }
 
-    private function admin(){
+    public function admin(){
         $this->getHeader("Admin");
         $this->getFooter();
     }
 
-    private function showProducts(){
+    public function showProducts(){
         $category = $_GET['category'] ?? "Välkommen";
         $this->getHeader($category);
         $this->getFooter();

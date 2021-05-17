@@ -21,3 +21,31 @@ $controller     = new Controller($model, $view);
 $userModel      = new UserModel($database);
 $userView       = new UserView();
 $userController = new UserController($userModel, $userView);
+
+$page = $_GET['page'] ?? "";
+
+switch($page){
+    case "details":
+        $controller->details();
+        break;
+    case "checkout":
+        $controller->checkout();
+        break;
+    case "profile":
+        $controller->showProfile();
+        break;
+    case "admin":
+        $controller->admin();
+        break;
+    case "register":
+        $userController->registerUser();
+        break;
+    case "login":
+        $userController->login();
+        break;
+    case "logout":
+        $userController->logout();
+        break;
+    default:
+        $controller->showProducts();
+}

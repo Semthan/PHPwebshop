@@ -8,39 +8,22 @@ class UserController{
     public function __construct($model, $view){
         $this->model = $model;
         $this->view = $view;
-        $this->router();
     }
 
-    private function router(){
-        $page = $_GET['page'] ?? "";
-
-        switch($page){
-            case "register":
-                $this->registerUser();
-                break;
-            case "login":
-                $this->login();
-                break;
-            case "logout":
-                $this->logout();
-                break;
-        }
-    }
-
-    private function login(){
+    public function login(){
         $this->view->viewLogin();
         if($_SERVER['REQUEST_METHOD']==='POST')
             $this->processLoginForm();
     }
 
-    private function logout(){
+    public function logout(){
         session_start();
         $_SESSION = [];
         session_destroy();
         header("location: index.php");
     }
     
-    private function registerUser(){
+    public function registerUser(){
         $this->view->viewRegisterUser();
         if($_SERVER['REQUEST_METHOD']==='POST')
             $this->processRegistrationForm();
@@ -112,7 +95,7 @@ class UserController{
         }
     }
 
-    public function sanatize($text){
+    private function sanatize($text){
         $text = trim($text);
         $text = stripslashes($text);
         $text = htmlspecialchars($text);
