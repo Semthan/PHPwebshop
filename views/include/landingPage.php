@@ -31,7 +31,6 @@
                     </div>
                 </div>
                 ";
- 
             echo $product; 
         }
     ?>
