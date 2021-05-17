@@ -13,7 +13,7 @@ class UserModel{
         $user = $this->db->select($stmt, [':email' => $email]);
 
         if(!$user){
-            return "Invalid e-mail or password";
+            return false;
         }else{
             $user = $user[0];
             if(password_verify($password, $user['password'])){
@@ -25,7 +25,7 @@ class UserModel{
 
                 header("location: index.php");
             }else{
-                return "Invalid e-mail or password";
+                return false;
             }
         }
     }

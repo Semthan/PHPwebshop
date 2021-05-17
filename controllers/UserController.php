@@ -30,15 +30,17 @@ class UserController{
     }
 
     private function processLoginForm(){
-        $errors = ["Invalid e-mail or password"];
+        $error = [0 => "Invalid e-mail or password"];
 
         $emailInput = $this->sanatize($_POST['email']);
         $passwordInput = $this->sanatize($_POST['password']);
 
         if(empty($emailInput) || empty($passwordInput)){
-            $this->view->printMessage($errors);
+            $this->view->printMessage($error);
         }else{
-            $this->model->login($emailInput, $passwordInput);
+            $status = $this->model->login($emailInput, $passwordInput);
+            if(!$status)
+                $this->view->printMessage($error);
         }
     }
 
