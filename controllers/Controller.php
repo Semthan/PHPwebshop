@@ -34,7 +34,9 @@ class Controller{
     }
 
     public function admin(){
-        $this->getHeader("Admin");
+        $this->model; 
+        $this->getHeader("Admin"); 
+        echo "KEVIN";
         $this->getFooter();
     }
 

@@ -39,7 +39,7 @@ class Model
         $statement = "INSERT INTO orders (customer_id, products_id)  
                       VALUES (:customer_id, :products_id)";
         $parameters = array(
-            ':customer_id' => $customer_id,
+            ':customer_id' => $users_id,
             ':film_id' => $products_id
         );
 
