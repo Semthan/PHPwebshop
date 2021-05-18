@@ -8,11 +8,6 @@ class Model
         $this->db = $database;
     }
 
-    public function fetchAllProducts()
-    {
-        $products = $this->db->select("SELECT * FROM products");
-        return $products;
-    }
 
     public function fetchProductById($id)
     {

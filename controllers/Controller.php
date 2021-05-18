@@ -4,10 +4,12 @@ class Controller{
 
     private $model;
     private $view;
+    private $productController; 
 
-    public function __construct($model, $view){
+    public function __construct($model, $view, $productController){
         $this->model = $model;
         $this->view = $view;
+        $this->productController = $productController;
     }
 
     private function getHeader($title){
@@ -34,20 +36,8 @@ class Controller{
     }
 
     public function admin(){
-        $products = $this->model->fetchAllProducts();
         $this->getHeader("Admin"); 
-        echo "<div class='d-flex'>";
-            foreach($products as $current){
-                $product = "
-                    
-                    <p>$current[title]</p>
-                    <a href='#'> edit </a>
-                    <a href='?delete=$current[product_id]'> delete </a>
-                    
-                ";
-                echo $product;
-            }
-        echo "</div>";
+        $this->productController->productCards();
         $this->getFooter();
     }
 
