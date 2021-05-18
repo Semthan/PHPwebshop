@@ -34,9 +34,20 @@ class Controller{
     }
 
     public function admin(){
-        $this->model; 
+        $products = $this->model->fetchAllProducts();
         $this->getHeader("Admin"); 
-        echo "KEVIN";
+        echo "<div class='d-flex'>";
+            foreach($products as $current){
+                $product = "
+                    
+                    <p>$current[title]</p>
+                    <a href='#'> edit </a>
+                    <a href='?delete=$current[product_id]'> delete </a>
+                    
+                ";
+                echo $product;
+            }
+        echo "</div>";
         $this->getFooter();
     }
 
