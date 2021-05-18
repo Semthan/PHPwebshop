@@ -9,8 +9,8 @@
 
         public function deleteProduct($productId){
             
-            $statement = "DELETE FROM products WHERE $productId";
-            $this->db->delete($statement);
+            $statement = "DELETE * FROM products WHERE product_id = :id";
+            $this->db->delete($statement, ["id"=>$productId]);
             header('Location: "https://localhost/webb20/PHPwebshop/index.php?page=admin"');
         }
 
