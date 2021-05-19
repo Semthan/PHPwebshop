@@ -1,23 +1,29 @@
-<form action="#" method="POST">
-    <div>
-        <input type="text" name="first_name" value="<?php echo $userData['first_name'] ?>">
+<form class="row m-5 g-3" action="#" method="POST">
+    <div class="col-6">
+        <label for="inputAddress" class="form-label">First name</label>
+        <input type="text" class="form-control" name="first_name" value="<?php echo $userData['first_name'] ?>">
     </div>
-    <div>
-        <input type="text" name="last_name" value="<?php echo $userData['last_name'] ?>">
+    <div class="col-6">
+        <label for="inputAddress2" class="form-label">Last name</label>
+        <input type="text" class="form-control" name="last_name" value="<?php echo $userData['last_name'] ?>">
     </div>
-    <div>
-        <input type="text" name="email" value="<?php echo $userData['email'] ?>">
+    <div class="col-6">
+        <label for="inputEmail4" class="form-label">Email</label>
+        <input type="email" class="form-control" name="email" value="<?php echo $userData['email'] ?>">
     </div>
-    <div>
-        <input type="text" name="tel" value="<?php echo $userData['tel'] ?>">
+    <div class="col-6">
+        <label for="inputPassword4" class="form-label">Password</label>
+        <input type="password" class="form-control" name="password" placeholder="New password">
     </div>
-    <div>
-        <input type="text" name="adress" value="<?php echo $userData['adress'] ?>">
+    <div class="col-6">
+        <label for="inputCity" class="form-label">Adress</label>
+        <input type="text" class="form-control" name="adress" value="<?php echo $userData['adress'] ?>">
     </div>
-    <div>
-        <input type="text" name="password" placeholder="Nytt lösenord">
+    <div class="col-md-6">
+        <label for="inputZip" class="form-label">Phone number</label>
+        <input type="text" class="form-control" name="tel" value="<?php echo $userData['tel'] ?>">
     </div>
-    <div>
-        <input type="submit" value="Uppdatera">
+    <div class="col-md">
+        <input type="submit" value="Update" class="btn btn-primary">
     </div>
 </form>
