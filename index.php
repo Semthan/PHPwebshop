@@ -33,9 +33,17 @@ $productController = new ProductController($productModel, $productView);
 $controller     = new Controller($model, $view, $productController);
 
 $page = $_GET['page'] ?? "";
+$product = $_GET['product'] ?? "";
 
 if(isset($_GET['delete'])) $productModel->deleteProduct($_GET['delete']);
 
+switch($product){
+    case "add":
+        $productController->addProduct();
+        break;
+    default:
+        $controller->showProducts();
+}
 
 switch($page){
     case "details":

@@ -13,7 +13,11 @@
             $this->view->allProducts($products);
         }
 
-        
+        public function addProduct(){
+            $products = $this->model->fetchAllProducts();
+            $this->view->productForm($products); 
+        }
+
     }
 
 ?>
