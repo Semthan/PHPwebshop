@@ -12,7 +12,7 @@ class OrderModel{
         $stmt = "INSERT INTO orders (order_id, users_id, order_date, shipped)
                  VALUES (NULL, :id, CURRENT_TIMESTAMP, 0)";
 
-        $id = ["id"=>$user_id];
+        $id = [":id"=>$user_id];
 
         $lastInsertId = $this->db->insert($stmt, $id);
 
@@ -31,9 +31,9 @@ class OrderModel{
     }
 
     public function changeOrderStatus($order_id){
-        $stmt = "UPDATE orders SET shipped = :statusVar";
+        $stmt = "UPDATE orders SET shipped = :shipped";
 
-        $shipped = [":statusVar"=>1];
+        $shipped = [":shipped"=>1];
 
         $this->db->update($stmt, $shipped);
     }
@@ -41,8 +41,8 @@ class OrderModel{
     public function deleteOrderInDb($order_id){
         $this->updateStock($order_id);
 
-        $stmt1 = "DELETE FROM orders WHERE orders.order_id = :id";
-        $stmt2 = "DELETE * FROM orders_has_products WHERE order_id = :id";
+        $stmt1 = "DELETE FROM orders_has_products WHERE order_id = :id";
+        $stmt2 = "DELETE FROM orders WHERE order_id = :id";
 
         $id = [":id" => $order_id];
 
@@ -58,7 +58,7 @@ class OrderModel{
         $products = $this->db->select($stmt, $id);
 
         foreach($products as $item){
-            $stmt = "UPDATE products SET stock = stock + :amount WHERE products.products_id = :id";
+            $stmt = "UPDATE products SET stock = stock + :amount WHERE product_id = :id";
 
             $inputParams = [
                 ":amount" => $item['amount'],
