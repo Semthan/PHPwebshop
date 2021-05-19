@@ -4,7 +4,7 @@ class Database
 {
     private $conn = null;
 
-    public function __construct($database, $username = "Harald", $password = "password",  $servername = "localhost")
+    public function __construct($database, $username = "root", $password = "root",  $servername = "localhost")
     {
         $dsn = "mysql:host=$servername;dbname=$database;charset=UTF8";
 

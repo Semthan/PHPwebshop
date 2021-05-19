@@ -213,3 +213,15 @@ $products = [
         "description" => "Den här lite högre plastlådan hjälper dig att utnyttja utrymmet på hyllor och i lådor på bästa sätt. Använd en eller flera och kombinera olika storlekar för att skapa en lösning som passar dina saker."
     ]
 ];
+
+$categories = [
+    [
+        "title" => "Bedroom"
+    ],
+    [
+        "title" => "Kitchen"
+    ],
+    [
+        "title" => "Office"
+    ]
+];

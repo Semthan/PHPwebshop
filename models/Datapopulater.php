@@ -26,4 +26,17 @@ class Populater
             $this->db->insert($stmt, $productDetails);
         }
     }
+
+    public function categoryPop($categories)
+    {
+
+
+        foreach ($categories as $item => $key) {
+            $stmt = "INSERT INTO category (category_id,title)
+                 VALUES (NULL, :title)";
+            $categoryDetails = $key;
+
+            $this->db->insert($stmt, $categoryDetails);
+        }
+    }
 }
