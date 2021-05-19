@@ -41,19 +41,39 @@
                     another header
                 </div>
                 <div class="row border p-2">
-                    <h3>Categories</h3>
-                    <div class="col-3 border">
-                        <li>test</li>
-                        <li>test</li>
-                        <li>test</li>
-                        <li>test</li>
+                    <div class="col-3">
+                        <h4 class="bg-dark text-light p-2">Categories</h4>
+                        <nav class="nav flex-column">
+                            <a class="nav-link" href="">Category 1</a>
+                            <a class="nav-link" href="">Category 2</a>
+                            <a class="nav-link" href="">Category 3</a>
+                            <a class="nav-link" href="">Category 4</a>
+                        </nav>
                     </div>
-                    <div class="col border">
-                        <div class="row">
-                            <div class="card m-auto" style="width: 18rem;">
-                                <img src="pic.PNG" class="card-img-top" alt="...">
+                    <div class="col ">
+                        <div class="row ">
+                            <div class="card m-auto text-center" style="width: 10rem;">
+                                <img src="pic.PNG" class="card-img-bottom" alt="...">
                                 <div class="card-body">
-                                    <h5 class="card-title text-center">Card title</h5>
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">Price</p>
+                                    <input class="btn btn-dark" type="submit" value="Add to cart">
+                                </div>
+                            </div>
+                            <div class="card m-auto text-center" style="width: 10rem;">
+                                <img src="pic.PNG" class="card-img-bottom" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">Price</p>
+                                    <input class="btn btn-dark" type="submit" value="Add to cart">
+                                </div>
+                            </div>
+                            <div class="card m-auto text-center" style="width: 10rem;">
+                                <img src="pic.PNG" class="card-img-bottom" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">Price</p>
+                                    <input class="btn btn-dark" type="submit" value="Add to cart">
                                 </div>
                             </div>
                         </div>
