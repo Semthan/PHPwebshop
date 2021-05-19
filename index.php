@@ -31,11 +31,11 @@ switch($page){
     case "checkout":
         $controller->checkout();
         break;
-    case "profile":
-        $controller->showProfile();
-        break;
     case "admin":
         $controller->admin();
+        break;
+    case "profile":
+        $userController->updateUser();
         break;
     case "register":
         $userController->registerUser();

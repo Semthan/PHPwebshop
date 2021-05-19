@@ -1,5 +1,6 @@
 <?php
-class Model{
+class Model
+{
     private $db;
 
     public function __construct($database)
@@ -7,41 +8,44 @@ class Model{
         $this->db = $database;
     }
 
-    public function fetchAllProducts(){
+    public function fetchAllProducts()
+    {
         $products = $this->db->select("SELECT * FROM products");
         return $products;
     }
 
-    public function fetchProductById($id){
-        $statement = "SELECT * from products WHERE id = :id";
+    public function fetchProductById($id)
+    {
+        $statement = "SELECT * from products WHERE products_id = :id";
         $params = array(":id => $id");
         $product  = $this->db->select($statement, $params);
         //print_r($product);
         return $movie[0] ?? false;
     }
 
-    public function fetchCustomerById($id){
-        $statement = "SELECT * FROM users WHERE id =:id";
+    public function fetchCustomerById($id)
+    {
+        $statement = "SELECT * FROM users WHERE users_id =:id";
         $parameters = array(':id' => $id);
-        $customer = $this->db->select($statement,$parameters);
+        $customer = $this->db->select($statement, $parameters);
         return $customer[0] ?? false;
     }
 
-    public function saveOrder($customer_id, $movie_id)
+    public function saveOrder($users_id, $products_id)
     {
-        $customer = $this->fetchCustomerById($customer_id);
-        if (!$customer) return false;
+        $user = $this->fetchCustomerById($users_id);
+        if (!$user) return false;
 
-        $statement = "INSERT INTO orders (customer_id, film_id)  
-                      VALUES (:customer_id, :film_id)";
+        $statement = "INSERT INTO orders (customer_id, products_id)  
+                      VALUES (:customer_id, :products_id)";
         $parameters = array(
             ':customer_id' => $customer_id,
-            ':film_id' => $movie_id
+            ':film_id' => $products_id
         );
 
         // Ordernummer
         $lastInsertId = $this->db->insert($statement, $parameters);
 
-        return array('customer' => $customer, 'lastInsertId' => $lastInsertId);
+        return array('customer' => $user, 'lastInsertId' => $lastInsertId);
     }
 }
