@@ -23,11 +23,32 @@
             $this->db->insert($stmt, $productData);
             header('Location: index.php?page=admin');
         }
+        public function editProduct($params, $id){
+            $stmt = "UPDATE products SET
+                title = :title, 
+                price = :price, 
+                stock = :stock,
+                img_src = :img_src,
+                description = :description,
+                category_id = :category_id
+                WHERE product_id = :id";
+            
+            $productData = $params;
+            print_r($productData);
+            $this->db->update($stmt, $productData);
+            header('Location: index.php?page=admin');
+        }
 
         public function fetchAllProducts()
         {
             $products = $this->db->select("SELECT * FROM products");
             return $products;
+        }
+        public function fetchOneProduct($productId)
+        {
+            $stmt = "SELECT * FROM products WHERE product_id = :id";
+            $product = $this->db->select($stmt, ["id"=>$productId]);
+            return $product;
         }
 
         

@@ -36,10 +36,14 @@ $page = $_GET['page'] ?? "";
 $product = $_GET['product'] ?? "";
 
 if(isset($_GET['delete'])) $productModel->deleteProduct($_GET['delete']);
+//if(isset($_GET['edit'])) $productController->editProduct($_GET['edit']);
 
 switch($product){
     case "add":
         $productController->addProduct();
+        break;
+    case "edit":
+        $productController->editProduct($_GET['id']);
         break;
     case "addProduct":
         $productController->addNewProduct();
