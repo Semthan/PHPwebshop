@@ -69,7 +69,7 @@ CREATE TABLE `products` (
   `title` varchar(50) COLLATE utf8mb4_swedish_ci NOT NULL,
   `price` int(11) NOT NULL,
   `stock` int(11) NOT NULL,
-  `img_src` varchar(100) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `img_src` varchar(255) COLLATE utf8mb4_swedish_ci NOT NULL,
   `category_id` int(11) NOT NULL,
   `description` varchar(450) COLLATE utf8mb4_swedish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
@@ -87,7 +87,8 @@ CREATE TABLE `users` (
   `email` varchar(50) COLLATE utf8mb4_swedish_ci NOT NULL,
   `tel` varchar(50) COLLATE utf8mb4_swedish_ci NOT NULL,
   `adress` varchar(50) COLLATE utf8mb4_swedish_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_swedish_ci NOT NULL
+  `password` varchar(255) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `admin` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 --

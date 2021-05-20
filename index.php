@@ -5,12 +5,14 @@ session_start();
 require_once ("models/Database.php");
 require_once ("models/Model.php");
 require_once ("models/UserModel.php");
+require_once ("models/OrderModel.php");
 
 require_once ("views/View.php");
 require_once ("views/UserView.php");
 
 require_once ("controllers/Controller.php");
 require_once ("controllers/UserController.php");
+require_once ("controllers/OrderController.php");
 
 $database       = new Database("webshop", "root", "root");
 
@@ -22,6 +24,9 @@ $userModel      = new UserModel($database);
 $userView       = new UserView();
 $userController = new UserController($userModel, $userView);
 
+$orderModel      = new OrderModel($database);
+$orderController = new OrderController($orderModel);
+
 $page = $_GET['page'] ?? "";
 
 switch($page){
@@ -32,7 +37,7 @@ switch($page){
         $controller->checkout();
         break;
     case "admin":
-        $controller->admin();
+        $_SESSION['admin'] ? $controller->admin() : $controller->error();
         break;
     case "profile":
         $userController->updateUser();
@@ -45,6 +50,12 @@ switch($page){
         break;
     case "logout":
         $userController->logout();
+        break;
+    case "order":
+        $orderController->testCreateOrder();
+        break;
+    case "deleteOrder":
+        $orderController->testDeleteOrder();
         break;
     default:
         $controller->showProducts();
