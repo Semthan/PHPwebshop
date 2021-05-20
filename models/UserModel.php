@@ -8,7 +8,7 @@ class UserModel{
     } 
 
     public function login($email, $password){
-        $stmt = "SELECT user_id, password, first_name, last_name FROM users WHERE email = :email";
+        $stmt = "SELECT user_id, password, first_name, last_name, admin FROM users WHERE email = :email";
 
         $user = $this->db->select($stmt, [':email' => $email]);
 
@@ -20,10 +20,11 @@ class UserModel{
                 session_start();
 
                 $_SESSION['loggedin'] = true;
+                $_SESSION['admin'] = $user['admin'];
                 $_SESSION['id'] = $user['user_id'];
                 $_SESSION['name'] = $user['first_name'] . " " . $user['last_name'];
 
-                header("location: index.php");
+                $user['admin'] ? header("location: index.php?page=admin") : header("location: index.php");
             }else{
                 return false;
             }
@@ -31,8 +32,8 @@ class UserModel{
     }
 
     public function registerNewUser($params){
-        $stmt = "INSERT INTO users (user_id, first_name, last_name, email, tel, adress, password)
-                 VALUES (NULL, :first_name, :last_name, :email, :tel, :adress, :password)";
+        $stmt = "INSERT INTO users (user_id, first_name, last_name, email, tel, adress, password, admin)
+                 VALUES (NULL, :first_name, :last_name, :email, :tel, :adress, :password, 0)";
         
         $userDetails = $params;
             
@@ -47,12 +48,23 @@ class UserModel{
                 tel = :tel,
                 adress = :adress,
                 password = :password
-                WHERE users.user_id = :id";
+                WHERE user_id = :id";
 
         $userDetails = $params;
 
+        $_SESSION['name'] = $userDetails[':first_name'] . " " . $userDetails[':last_name'];
         $this->db->update($stmt, $userDetails);
+
+        header("Refresh:0");
     }
+
+    // public function deleteUserFromDb($params){
+    //     $stmt = "DELETE FROM users WHERE user_id = :id";
+
+    //     $id = [":id" => $params];
+
+    //     $this->db->delete($stmt, $id);
+    // }
 
     public function checkEmailAvailability($params){
         $stmt = "SELECT * FROM users WHERE email = :email";

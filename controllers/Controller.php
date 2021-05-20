@@ -35,6 +35,13 @@ class Controller{
 
     public function admin(){
         $this->getHeader("Admin");
+        echo "<p>200 page found</p>";
+        $this->getFooter();
+    }
+
+    public function error(){
+        $this->getHeader("Admin");
+        echo "<p>404 page not found</p>";
         $this->getFooter();
     }
 

@@ -43,6 +43,12 @@ class UserController{
             $this->processUpdateUserForm($currentDetails);
     }
 
+    public function deleteUser(){
+        $id = $_SESSION['id'];
+        $this->logout();
+        $this->model->deleteUserFromDb($id);
+    }
+
     private function processLoginForm(){
         $error = [0 => "Invalid e-mail or password"];
 

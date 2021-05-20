@@ -3,29 +3,28 @@
 class OrderController{
 
     private $model;
-    private $view;
 
-    public function __construct($model, $view){
+    public function __construct($model){
         $this->model = $model;
-        $this->view = $view;
     }
 
-    // basket = [
-    //     [
-    //         "id"=>$product_id,
-    //         "amount"=>5
-    //     ],
-    //     [
-    //         "id"=>$product_id,
-    //         "amount"=>2
-    //     ]
-    // ]
-
-    public function createOrder($user_id, $basket = []){
+    public function testCreateOrder(){
+        $basket = [
+            [
+                "id" => 4,
+                "amount" => 2
+            ],
+            [
+                "id" => 2,
+                "amount" => 1
+            ]
+        ];
         
+        $this->model->createOrderInDb(1, $basket);
     }
 
-    public function deleteOrder($order_id){
-
+    public function testDeleteOrder(){
+        $order_id = 2;
+        $this->model->deleteOrderInDb($order_id);
     }
 }
