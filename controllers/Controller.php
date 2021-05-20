@@ -4,10 +4,12 @@ class Controller{
 
     private $model;
     private $view;
+    private $productController; 
 
-    public function __construct($model, $view){
+    public function __construct($model, $view, $productController){
         $this->model = $model;
         $this->view = $view;
+        $this->productController = $productController;
     }
 
     private function getHeader($title){
@@ -35,7 +37,7 @@ class Controller{
 
     public function admin(){
         $this->getHeader("Admin");
-        echo "<p>200 page found</p>";
+        $this->productController->productCards();
         $this->getFooter();
     }
 
