@@ -13,8 +13,9 @@ require_once("views/UserView.php");
 
 require_once("controllers/Controller.php");
 require_once("controllers/UserController.php");
+require_once("controllers/OrderController.php");
 
-$database       = new Database("webshop", "root", "root");
+$database       = new Database("webshop", "Harald", "password");
 
 $model          = new Model($database);
 $view           = new View();
@@ -24,15 +25,20 @@ $userModel      = new UserModel($database);
 $userView       = new UserView();
 $userController = new UserController($userModel, $userView);
 $datapopulate   = new Populater($database);
+$basket         = new OrderController($model, $view, $database);
 
 $page = $_GET['page'] ?? "";
 
 switch ($page) {
     case "categorypop":
         $datapopulate->categoryPop($categories);
-
+        break;
     case "productpop":
         $datapopulate->productPop($products);
+        break;
+    case "addtobasket":
+        $basket->addToBasket(5, 2);
+        break;
     case "details":
         $controller->details();
         break;

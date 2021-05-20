@@ -15,16 +15,16 @@ class Populater
 
     {
 
+        echo json_encode($_SESSION['basket']);
+        // foreach ($products as $item => $key) {
 
-        foreach ($products as $item => $key) {
+        //     $stmt = "INSERT INTO products (product_id,title, price, stock, img_src, category_id, description)
+        //          VALUES (NULL, :title, :price, :stock, :img_src, :category, :description)";
 
-            $stmt = "INSERT INTO products (product_id,title, price, stock, img_src, category_id, description)
-                 VALUES (NULL, :title, :price, :stock, :img_src, :category, :description)";
+        //     $productDetails = $key;
 
-            $productDetails = $key;
-
-            $this->db->insert($stmt, $productDetails);
-        }
+        //     $this->db->insert($stmt, $productDetails);
+        // }
     }
 
     public function categoryPop($categories)
