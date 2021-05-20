@@ -41,6 +41,9 @@ switch($product){
     case "add":
         $productController->addProduct();
         break;
+    case "addProduct":
+        $productController->addNewProduct();
+        break;
     default:
         $controller->showProducts();
 }
