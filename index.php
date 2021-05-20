@@ -25,7 +25,7 @@ $userView       = new UserView();
 $userController = new UserController($userModel, $userView);
 
 $orderModel      = new OrderModel($database);
-$orderController = new OrderController($orderModel, $orderView);
+$orderController = new OrderController($orderModel);
 
 $page = $_GET['page'] ?? "";
 
