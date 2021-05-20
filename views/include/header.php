@@ -27,6 +27,16 @@
                                     </a>
                                   </li>";
                             echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
+                                    <a class='nav-link' href='#'>
+                                        <h3>Orders</h3>
+                                    </a>
+                                  </li>";
+                            echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
+                                    <a class='nav-link' href='#'>
+                                        <h3>Cart</h3>
+                                    </a>
+                                  </li>";
+                            echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
                                     <a class='nav-link' href='?page=logout'>
                                         <h3>Log out</h3>
                                     </a>
@@ -41,6 +51,12 @@
                                         <a class='nav-link' href='?page=register'>
                                             <h3>Register</h3>
                                         </a>
+                                  </li>";
+
+                            echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
+                                    <a class='nav-link' href='#'>
+                                        <h3>Cart</h3>
+                                    </a>
                                   </li>";
                         }
                         ?>
