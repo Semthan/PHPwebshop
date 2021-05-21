@@ -38,7 +38,7 @@
                     </nav>
                 </div>
                 <div class="row">
-                    <div class="bg-light p-5 rounded-lg m-3 border text-center">
+                    <div class="bg-light p-5 rounded-lg mt-2 border text-center">
                         <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam eius, dignissimos at quos obcaecati aliquid quibusdam vitae blanditiis eligendi ipsam commodi sapiente totam amet fuga, iusto hic fugiat dolorum reiciendis.</p>
                         <p class="lead">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi illo fugit ex. Unde ducimus labore obcaecati quasi expedita beatae a ab accusantium dolores sapiente, aliquam autem, totam harum quas inventore?</p>
                         <a class="btn btn-dark btn-lg" href="#" role="button">Browse Shop</a>
