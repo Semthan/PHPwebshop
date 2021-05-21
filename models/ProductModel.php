@@ -23,6 +23,7 @@
             $this->db->insert($stmt, $productData);
             header('Location: index.php?page=admin');
         }
+        
         public function editProduct($params, $id){
             $stmt = "UPDATE products SET
                 title = :title, 

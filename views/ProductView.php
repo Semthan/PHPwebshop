@@ -32,7 +32,7 @@ class ProductView
             <div class='card-body'>
                 <h5 class='card-title'>$current[title]</h5>
                 <p class='card-text'>$current[price]</p>
-                <input class='btn btn-dark' type='submit' value='Add to cart'>
+                <a href='?page=addtobasket&id=$current[product_id]'><button class='btn btn-dark'>Add to cart</button></a>
             </div>
             </div>";
         }

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a091911bcd.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     <title><?php echo $title ?></title>
 </head>
@@ -20,6 +21,11 @@
                     <ul class="navbar-nav ms-auto">
 
                         <?php
+                        $count = 0;
+                        foreach($_SESSION['basket'] as $current){
+                            $count += $current['amount'];
+                        }
+
                         if (isset($_SESSION['id'])) {
                             echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
                                     <a class='nav-link' href='?page=profile'>
@@ -32,8 +38,9 @@
                                     </a>
                                   </li>";
                             echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
-                                    <a class='nav-link' href='#'>
-                                        <h3>Cart</h3>
+                                    <a class='nav-link' href='?page=cart'>
+                                        <i class='fas fa-shopping-cart'></i>
+                                        <p>$count</p>
                                     </a>
                                   </li>";
                             echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>

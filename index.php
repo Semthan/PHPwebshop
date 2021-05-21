@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+!isset($_SESSION["basket"]) && $_SESSION["basket"] = [];
 
 require_once("models/Database.php");
 require_once("models/Model.php");
@@ -11,11 +12,13 @@ require_once("models/ProductModel.php");
 require_once("views/View.php");
 require_once("views/UserView.php");
 require_once("views/ProductView.php");
+require_once("views/CartView.php");
 
 require_once("controllers/Controller.php");
 require_once("controllers/UserController.php");
 require_once("controllers/OrderController.php");
 require_once("controllers/ProductController.php");
+require_once("controllers/CartController.php");
 
 $database       = new Database("webshop", "root", "root");
 
@@ -28,6 +31,7 @@ $userModel      = new UserModel($database);
 $view           = new View();
 $userView       = new UserView();
 $productView    = new productView();
+$cartView       = new CartView();
 
 //Controllers
 $userController = new UserController($userModel, $userView);
@@ -35,7 +39,7 @@ $productController = new ProductController($productModel, $productView);
 $controller     = new Controller($model, $view, $productController);
 
 $orderModel      = new OrderModel($database);
-$basket = new OrderController($model, $view, $database);
+$cartController = new CartController($model, $cartView, $database, $productModel);
 
 $page = $_GET['page'] ?? "";
 $product = $_GET['product'] ?? "";
@@ -82,6 +86,12 @@ switch ($page) {
         break;
     case "deleteOrder":
         $orderController->testDeleteOrder();
+        break;
+    case "addtobasket":
+        $cartController->addtobasket($_GET["id"],1);
+        break;
+    case "cart":
+        $cartController->cart();
         break;
     default:
         $controller->showProducts();
