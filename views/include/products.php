@@ -60,22 +60,6 @@
                                     <input class="btn btn-dark" type="submit" value="Add to cart">
                                 </div>
                             </div>
-                            <div class="card m-auto text-center" style="width: 10rem;">
-                                <img src="pic.PNG" class="card-img-bottom" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">Price</p>
-                                    <input class="btn btn-dark" type="submit" value="Add to cart">
-                                </div>
-                            </div>
-                            <div class="card m-auto text-center" style="width: 10rem;">
-                                <img src="pic.PNG" class="card-img-bottom" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">Price</p>
-                                    <input class="btn btn-dark" type="submit" value="Add to cart">
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

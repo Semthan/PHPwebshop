@@ -9,6 +9,10 @@
             
         }
 
+        public function showAllProducts(){
+            $products = $this->model->fetchAllProducts();
+            $this->view->showProducts($products);
+        }
 
         public function productCards(){
             $products = $this->model->fetchAllProducts();
@@ -96,5 +100,3 @@
         }
     
     }
-
-?>

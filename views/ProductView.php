@@ -1,10 +1,12 @@
 <?php
-    class ProductView{
-        public function allProducts($products){
-            echo "<a href='?product=add'>Add clothes </a>";
-            echo "<div class='row'>";
-            foreach($products as $current){
-                $product = "
+class ProductView
+{
+    public function allProducts($products)
+    {
+        echo "<a href='?product=add'>Add clothes </a>";
+        echo "<div class='row'>";
+        foreach ($products as $current) {
+            $product = "
                     <div class='col-4'>
                     <p>$current[title]</p>
                     <a href='?product=edit&id=$current[product_id]'> edit </a>
@@ -12,15 +14,27 @@
                     </div>
                     
                 ";
-                echo $product;
-             }
-            echo "</div>";
+            echo $product;
         }
-
-        public function productForm($product){
-            include('views/include/products/productForm.php');
-
-        }
-
-    
+        echo "</div>";
     }
+
+    public function productForm($product)
+    {
+        include('views/include/products/productForm.php');
+    }
+
+    public function showProducts($products)
+    {
+        foreach ($products as $current) {
+            echo "<div class='card m-auto text-center' style='width: 10rem;'>
+            <img src='$current[img_src]' class='card-img-bottom' alt='...'>
+            <div class='card-body'>
+                <h5 class='card-title'>$current[title]</h5>
+                <p class='card-text'>$current[price]</p>
+                <input class='btn btn-dark' type='submit' value='Add to cart'>
+            </div>
+            </div>";
+        }
+    }
+}

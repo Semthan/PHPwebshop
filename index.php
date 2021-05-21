@@ -53,8 +53,6 @@ switch ($product) {
     case "addProduct":
         $productController->addNewProduct();
         break;
-    default:
-        $controller->showProducts();
 }
 
 switch ($page) {
