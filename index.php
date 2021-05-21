@@ -37,7 +37,7 @@ switch ($page) {
         $datapopulate->productPop($products);
         break;
     case "addtobasket":
-        $basket->addToBasket(5, 2);
+        $basket->addToBasket(3, 3);
         break;
     case "details":
         $controller->details();
