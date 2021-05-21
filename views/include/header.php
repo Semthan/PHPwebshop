@@ -22,8 +22,18 @@
                         <?php
                         if (isset($_SESSION['id'])) {
                             echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
-                                    <a class='nav-link' href='#'>
+                                    <a class='nav-link' href='?page=profile'>
                                         <h3>$_SESSION[name]</h3>
+                                    </a>
+                                  </li>";
+                            echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
+                                    <a class='nav-link' href='#'>
+                                        <h3>Orders</h3>
+                                    </a>
+                                  </li>";
+                            echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
+                                    <a class='nav-link' href='#'>
+                                        <h3>Cart</h3>
                                     </a>
                                   </li>";
                             echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
@@ -42,10 +52,17 @@
                                             <h3>Register</h3>
                                         </a>
                                   </li>";
+
+                            echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
+                                    <a class='nav-link' href='#'>
+                                        <h3>Cart</h3>
+                                    </a>
+                                  </li>";
                         }
                         ?>
                     </ul>
                 </div>
             </div>
         </nav>
+        <hr>
     </div>
