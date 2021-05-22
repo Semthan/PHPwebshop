@@ -87,5 +87,18 @@ class UserModel
         $id = [':id' => $params];
 
         return $this->db->select($stmt, $id);
+    }    
+
+    public function updateStockOnLogout($cart){
+        foreach($cart as $item){
+            $stmt = "UPDATE products SET stock = stock + :amount WHERE product_id = :id";
+
+            $inputParams = [
+                ":amount" => $item['amount'],
+                ":id" => $item['id']
+            ];
+
+            $this->db->update($stmt, $inputParams);
+        }
     }
 }

@@ -17,9 +17,9 @@ class UserController{
     }
 
     public function logout(){
+        $this->model->updateStockOnLogout($_SESSION['basket']);
         session_start();
-        $_SESSION = [];
-        
+        $_SESSION = [];        
         session_destroy();
         header("location: index.php");
     }

@@ -2,23 +2,23 @@
 
 class OrderController
 {
-    private $db;
     private $model;
-    private $view;
 
-    public function __construct($model, $view, $database)
+    public function __construct($model)
     {
         $this->model = $model;
-        $this->view = $view;
-        $this->db = $database;
     }
 
 
     public function createOrder($user_id, $basket = [])
     {
+        $this->model->createOrderInDb($user_id, $basket);
+        $_SESSION['basket'] = [];
+        header('location: index.php');
     }
 
-    public function deleteOrder($order_id)
+    public function shipOrder($order_id)
     {
+        $this->model->changeOrderStatus($order_id);
     }
 }

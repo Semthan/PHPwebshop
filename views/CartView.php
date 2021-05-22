@@ -31,6 +31,8 @@
                 echo $productCard;
             }
 
+            echo "<a href='?page=order'>Create order</a>";
+
             /* foreach($cart as $item){
                 echo '<pre>';
                 print_r($item);

@@ -39,6 +39,7 @@ $productController = new ProductController($productModel, $productView);
 $controller     = new Controller($model, $view, $productController);
 
 $orderModel      = new OrderModel($database);
+$orderController = new OrderController($orderModel);
 $cartController = new CartController($model, $cartView, $database, $productModel);
 
 $page = $_GET['page'] ?? "";
@@ -81,12 +82,6 @@ switch ($page) {
     case "logout":
         $userController->logout();
         break;
-    case "order":
-        $orderController->testCreateOrder();
-        break;
-    case "deleteOrder":
-        $orderController->testDeleteOrder();
-        break;
     case "addtobasket":
         if(isset($_GET['cart'])){$cartController->addtobasket($_GET["id"],1,'index.php?page=cart');}
         if(isset($_GET['index'])){$cartController->addtobasket($_GET["id"],1,'index.php');}
@@ -97,6 +92,9 @@ switch ($page) {
         break;
     case "cart":
         $cartController->cart();
+        break;
+    case "order":
+        isset($_SESSION['id']) ? $orderController->createOrder($_SESSION['id'],$_SESSION['basket']) : $userController->login();
         break;
     default:
         $controller->showProducts();
