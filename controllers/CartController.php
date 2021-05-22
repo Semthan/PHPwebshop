@@ -15,7 +15,7 @@ class CartController
         $this->productModel = $productModel;
     }
 
-    public function addToBasket($product_id, $amount)
+    public function addToBasket($product_id, $amount, $cart)
         {
     
             $array = [];
@@ -46,9 +46,10 @@ class CartController
                     array_push($basket, $product);
                 }
                 $_SESSION['basket'] = $basket;
-                header('Location: index.php?page=index.php');
-
+                
+                
             }
+            $cart?  header('Location: index.php?page=cart'): header('Location: index.php');
     
     
     

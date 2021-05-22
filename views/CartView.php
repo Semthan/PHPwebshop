@@ -4,8 +4,9 @@
 
         public function cartProducts($cart, $products){
             include_once('include/header.php');
-            /* echo '<pre>';
-            print_r($products); */
+            echo '<pre>';
+            print_r($_SESSION['basket']);
+
             for($x = 0; $x < count($products); $x++){
                 $title = $products[$x][0]['title'];
                 $id = $products[$x][0]['product_id'];
@@ -21,7 +22,7 @@
                             <p class='card-text'>$price</p>
                             <p class='card-text'>$amount</p>
                             <p class='card-text'>$id</p>
-                            <a href='#'><p>+</p></a>
+                            <a href='?page=updatebasket&id=$id'><p>+</p></a>
                             <p>-</p>
                         </div>
                     </div>";;

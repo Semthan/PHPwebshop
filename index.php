@@ -88,7 +88,10 @@ switch ($page) {
         $orderController->testDeleteOrder();
         break;
     case "addtobasket":
-        $cartController->addtobasket($_GET["id"],1);
+        $cartController->addtobasket($_GET["id"],1, false);
+        break;
+    case "updatebasket":
+        $cartController->addtobasket($_GET["id"],1, true);
         break;
     case "cart":
         $cartController->cart();
