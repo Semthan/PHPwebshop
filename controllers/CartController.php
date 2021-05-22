@@ -46,6 +46,8 @@ class CartController
                     array_push($basket, $product);
                 }
                 $_SESSION['basket'] = $basket;
+                header('Location: index.php?page=index.php');
+
             }
     
     
