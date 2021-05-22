@@ -15,7 +15,31 @@ class CartController
         $this->productModel = $productModel;
     }
 
-    public function addToBasket($product_id, $amount, $cart)
+    public function removeFromBasket($product_id, $amount, $path){
+        $basket = $_SESSION['basket'];
+
+        foreach ($basket as $key => $item) {
+            if ($item['id'] === $product_id) {
+                if($item['amount'] == 1){
+                    unset($basket[$key]);
+                }else{
+                    $item['amount'] -= $amount;
+                    $basket[$key] = $item;
+                }
+            
+            }
+        }
+
+        $stmt = "UPDATE products SET stock = stock +$amount WHERE product_id=$product_id";
+        $this->db->update($stmt);
+
+        $_SESSION['basket'] = $basket;
+        
+        header('Location:'.$path);
+
+    }
+
+    public function addToBasket($product_id, $amount, $path)
         {
     
             $array = [];
@@ -49,10 +73,7 @@ class CartController
                 
                 
             }
-            $cart?  header('Location: index.php?page=cart'): header('Location: index.php');
-    
-    
-    
+            header('Location:'.$path);
     
             $stmt = "UPDATE products SET stock = stock -$amount WHERE product_id=$product_id";
     

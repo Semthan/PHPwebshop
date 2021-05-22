@@ -19,6 +19,7 @@ class UserController{
     public function logout(){
         session_start();
         $_SESSION = [];
+        
         session_destroy();
         header("location: index.php");
     }

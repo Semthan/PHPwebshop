@@ -13,7 +13,8 @@
                 $price = $products[$x][0]['price'];
                 $img = $products[$x][0]['img_src'];
                 $amount = $cart[$x]['amount'];
-
+                
+                
                 $productCard = "
                     <div class='card m-auto text-center' style='width: 10rem;'>
                         <img src='$img' class='card-img-bottom' alt='...'>
@@ -22,9 +23,9 @@
                             <p class='card-text'>$price</p>
                             <p class='card-text'>$amount</p>
                             <p class='card-text'>$id</p>
-                            <a href='?page=updatebasket&id=$id'><p>+</p></a>
-                            <p>-</p>
-                        </div>
+                            <a href='?page=addtobasket&id=$id&cart=true'><p>+</p></a>
+                            <a href='?page=removefrombasket&id=$id&cart=true'><p>-</p></a>
+                            </div>
                     </div>";;
 
                 echo $productCard;
