@@ -32,14 +32,6 @@
             }
 
             echo "<a href='?page=order'>Create order</a>";
-
-            /* foreach($cart as $item){
-                echo '<pre>';
-                print_r($item);
-                print_r($products[$item['id']]);
-
-                echo '</pre>';
-            } */
             include_once('include/footer.php');
         }
 

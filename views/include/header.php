@@ -32,11 +32,14 @@
                                         <h3>$_SESSION[name]</h3>
                                     </a>
                                   </li>";
-                            echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
-                                    <a class='nav-link' href='#'>
-                                        <h3>Orders</h3>
-                                    </a>
-                                  </li>";
+                                  if($_SESSION['admin']){
+                                      echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
+                                              <a class='nav-link' href='?page=adminorders'>
+                                                  <h3>Orders</h3>
+                                              </a>
+                                            </li>";
+                                  
+                                    };
                             echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
                                     <a class='nav-link' href='?page=cart'>
                                         <i class='fas fa-shopping-cart'></i>

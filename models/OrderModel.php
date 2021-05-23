@@ -30,17 +30,6 @@ class OrderModel{
         }
     }
 
-    public function changeOrderStatus($order_id){
-        $stmt = "UPDATE orders SET shipped = :shipped WHERE order_id = :id";
-
-        $params = [
-            ":shipped" => 1,
-            ":id" => $order_id
-        ];
-
-        $this->db->update($stmt, $params);
-    }
-
     public function deleteOrderInDb($order_id){
         $this->updateStock($order_id);
 

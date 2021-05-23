@@ -85,12 +85,6 @@
                         
         }
 
-        public function addNewProduct(){
-            
-            
-           
-        }
-
         private function sanatize($text){
             $text = trim($text);
             $text = stripslashes($text);

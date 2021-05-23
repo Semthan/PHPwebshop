@@ -3,22 +3,31 @@
 session_start();
 !isset($_SESSION["basket"]) && $_SESSION["basket"] = [];
 
+
+//Models
 require_once("models/Database.php");
 require_once("models/Model.php");
 require_once("models/UserModel.php");
 require_once("models/OrderModel.php");
 require_once("models/ProductModel.php");
+require_once("models/AdminModel.php");
 
+
+//Views
 require_once("views/View.php");
 require_once("views/UserView.php");
 require_once("views/ProductView.php");
 require_once("views/CartView.php");
+require_once("views/adminView.php");
 
+
+//Controllers
 require_once("controllers/Controller.php");
 require_once("controllers/UserController.php");
 require_once("controllers/OrderController.php");
 require_once("controllers/ProductController.php");
 require_once("controllers/CartController.php");
+require_once("controllers/AdminController.php");
 
 $database       = new Database("webshop", "root", "root");
 
@@ -26,21 +35,24 @@ $database       = new Database("webshop", "root", "root");
 $model          = new Model($database);
 $productModel   = new ProductModel($database);
 $userModel      = new UserModel($database);
+$orderModel      = new OrderModel($database);
+$adminModel      = new AdminModel($database);
 
 //Views
 $view           = new View();
 $userView       = new UserView();
 $productView    = new productView();
 $cartView       = new CartView();
+$adminView       = new AdminView();
 
 //Controllers
-$userController = new UserController($userModel, $userView);
+$userController    = new UserController($userModel, $userView);
 $productController = new ProductController($productModel, $productView);
-$controller     = new Controller($model, $view, $productController);
+$controller        = new Controller($model, $view, $productController);
 
-$orderModel      = new OrderModel($database);
 $orderController = new OrderController($orderModel);
-$cartController = new CartController($model, $cartView, $database, $productModel);
+$cartController  = new CartController($model, $cartView, $database, $productModel);
+$adminController   = new AdminController($adminModel, $view, $adminView);
 
 $page = $_GET['page'] ?? "";
 $product = $_GET['product'] ?? "";
@@ -55,9 +67,7 @@ switch ($product) {
     case "edit":
         $productController->editProduct($_GET['id']);
         break;
-    case "addProduct":
-        $productController->addNewProduct();
-        break;
+
 }
 
 switch ($page) {
@@ -70,6 +80,9 @@ switch ($page) {
     case "admin":
         $_SESSION['admin'] ? $controller->admin() : $controller->error();
         break;
+        case "adminorders":
+            $adminController->orders();
+            break;
     case "profile":
         $userController->updateUser();
         break;
