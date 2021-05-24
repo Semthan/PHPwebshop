@@ -106,7 +106,6 @@ class CartController
 
     public function showCart()
     {
-        print_r($_SESSION['cart']);
         $productData = [];
         foreach ($_SESSION["cart"] as $item) {
             $product = $this->productModel->fetchOneProduct($item["id"]);

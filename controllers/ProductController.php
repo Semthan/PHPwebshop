@@ -140,6 +140,7 @@
 
         private function deleteProduct($id){
             $this->productModel->setAvailabilityToFalse($id);
+            header('Location: ?page=editproduct&asignment=showproducts');
         }
         
         private function sanatize($text){
