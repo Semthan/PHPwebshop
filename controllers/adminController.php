@@ -6,7 +6,7 @@
         private $adminView;
         private $adminModel; 
 
-        public function __construct($adminModel, $adminView,){
+        public function __construct($adminModel, $adminView){
             $this -> adminModel = $adminModel;
             $this -> adminView = $adminView;
 
@@ -54,4 +54,3 @@
             header("Location: ?page=editproduct&asignment=edit");
         }
     }
-?>
