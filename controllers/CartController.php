@@ -14,7 +14,8 @@ class CartController
         $this->productModel = $productModel;
     }
 
-    public function cart(){
+    public function cart()
+    {
         $path = $_GET['path'] ?? "";
         $id = $_GET['id'] ?? "";
 
@@ -23,43 +24,41 @@ class CartController
                 $this->addToCart($id, 1, "index.php");
                 break;
             case "remove":
-            $this->removeFromcart($id, 1);
-                    break;
+                $this->removeFromcart($id, 1);
+                break;
             case "showcart":
-            $this->showCart();
-                    break;
+                $this->showCart();
+                break;
             default:
-            break;  
-        } 
+                break;
+        }
     }
 
-    public function removeFromcart($product_id, $amount){
+    public function removeFromcart($product_id, $amount)
+    {
         $cart = $_SESSION['cart'];
 
         foreach ($cart as $key => $item) {
             if ($item['id'] === $product_id) {
-                if($item['amount'] == 1){
+                if ($item['amount'] == 1) {
                     unset($cart[$key]);
-                }else{
+                } else {
                     $item['amount'] -= $amount;
                     $cart[$key] = $item;
                 }
-            
             }
         }
 
         $stmt = "UPDATE products SET stock = stock +$amount WHERE product_id=$product_id";
         $this->db->update($stmt);
 
-        $_SESSION['cart'] = $cart;
-        
-        isset($_GET['index'])?header("location: index.php"):header("location: index.php?page=cart");
+        $_SESSION['cart'] = array_values($cart);
 
-       
-
+        isset($_GET['index']) ? header("location: index.php") : header("location: index.php?page=cart&path=showcart");
     }
 
-    public function addToCart($product_id, $amount){
+    public function addToCart($product_id, $amount)
+    {
         $array = [];
         if (empty($_SESSION['cart'])) {
             $cart = $_SESSION['cart'];
@@ -85,19 +84,21 @@ class CartController
                 $product = ['id' => $product_id, 'amount' => $amount];
                 array_push($cart, $product);
             }
-            $_SESSION['cart'] = $cart; 
+            $_SESSION['cart'] = $cart;
         }
-        
-        isset($_GET['index'])?header("location: index.php"):header("location: index.php?page=cart&path=showcart");
-            
+
+        isset($_GET['index']) ? header("location: index.php") : header("location: index.php?page=cart&path=showcart");
+
         $stmt = "UPDATE products SET stock = stock -$amount WHERE product_id=$product_id";
 
         $this->db->update($stmt);
     }
-    
-    public function showCart(){
+
+    public function showCart()
+    {
+        print_r($_SESSION['cart']);
         $productData = [];
-        foreach($_SESSION["cart"] as $item){
+        foreach ($_SESSION["cart"] as $item) {
             $product = $this->productModel->fetchOneProduct($item["id"]);
             array_push($productData, $product);
         }
@@ -107,12 +108,14 @@ class CartController
         $this->cartView->viewFooter();
     }
 
-    public function getCartProducts($productData){
+    public function getCartProducts($productData)
+    {
         $this->cartView->viewCartProducts($_SESSION["cart"],  $productData);
     }
 
-    public function updateStockOnSessionEnd($cart){
-        foreach($cart as $item){
+    public function updateStockOnSessionEnd($cart)
+    {
+        foreach ($cart as $item) {
             $stmt = "UPDATE products SET stock = stock + :amount WHERE product_id = :id";
 
             $inputParams = [
@@ -123,5 +126,4 @@ class CartController
             $this->db->update($stmt, $inputParams);
         }
     }
-
 }
