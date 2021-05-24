@@ -14,6 +14,25 @@ class CartController
         $this->productModel = $productModel;
     }
 
+    public function cart(){
+        $path = $_GET['path'] ?? "";
+        $id = $_GET['id'] ?? "";
+
+        switch ($path) {
+            case "add":
+                $this->addToCart($id, 1, "index.php");
+                break;
+            case "remove":
+            $this->removeFromcart($id, 1);
+                    break;
+            case "showcart":
+            $this->showCart();
+                    break;
+            default:
+            break;  
+        } 
+    }
+
     public function removeFromcart($product_id, $amount){
         $cart = $_SESSION['cart'];
 
@@ -82,6 +101,7 @@ class CartController
             $product = $this->productModel->fetchOneProduct($item["id"]);
             array_push($productData, $product);
         }
+
         $this->cartView->viewHeader();
         $this->getCartProducts($productData);
         $this->cartView->viewFooter();
@@ -89,7 +109,6 @@ class CartController
 
     public function getCartProducts($productData){
         $this->cartView->viewCartProducts($_SESSION["cart"],  $productData);
-
     }
 
     public function updateStockOnSessionEnd($cart){
@@ -105,25 +124,6 @@ class CartController
         }
     }
 
-    public function cart(){
-        $path = $_GET['path'] ?? "";
-        $id = $_GET['id'] ?? "";
-        ECHO "hej";
-
-        switch ($path) {
-            case "add":
-                $this->addToCart($id, 1, "index.php");
-                break;
-            case "remove":
-            $this->removeFromcart($id, 1);
-                    break;
-            case "showcart":
-            $this->showCart();
-                    break;
-            default:
-            break;  
-        } 
-    }
 }
 
 

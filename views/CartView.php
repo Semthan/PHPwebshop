@@ -14,10 +14,6 @@ class CartView
 
     public function viewCartProducts($cart, $products)
     {
-        echo '<pre>';
-        print_r($_SESSION['cart']);
-        print_r($products);
-
         for ($x = 0; $x < count($products); $x++) {
             $title = $products[$x][0]['title'];
             $id = $products[$x][0]['product_id'];

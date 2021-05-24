@@ -41,7 +41,7 @@ $adminModel      = new AdminModel($database);
 //Views
 $view           = new View();
 $userView       = new UserView();
-$productView    = new productView();
+$productView    = new ProductView();
 $cartView       = new CartView();
 $adminView       = new AdminView();
 
