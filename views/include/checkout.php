@@ -1,3 +1,4 @@
+<?php include_once "header.php" ?>
 <h1>Cart</h1>
 <div class="row d-flex border">
     <div class="col-10 border">
