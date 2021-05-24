@@ -14,7 +14,7 @@ class ProductView
     public function AdminViewAllProducts($products)
     {
 
-        echo "<a href='?page=editproduct&asignment=add'>Add clothes </a>";
+        echo "<a href='?page=editproduct&asignment=add'>Add new </a>";
         echo "<div class='row'>";
         foreach ($products as $current) {
             if($current['available']){
@@ -22,7 +22,7 @@ class ProductView
                     <div class='col-4'>
                         <p>$current[title]</p>
                         <a href='?page=editproduct&asignment=edit&id=$current[product_id]'> edit </a>
-                        <a href='?page=editproduct&asignment=delete&id=$current[product_id]'> delete </a>
+                        <a href='?page=editproduct&asignment=delete&id=$current[product_id]'> remove </a>
                     </div>
                     HTML;
                 echo $html;
