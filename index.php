@@ -66,17 +66,8 @@ switch ($page) {
     case "cart":
         $cartController->cart();
         break;
-    case "profile":
-        $userController->updateUser();
-        break;
-    case "register":
-        $userController->registerUser();
-        break;
-    case "login":
-        $userController->login();
-        break;
-    case "logout":
-        $userController->logout();
+    case "user":
+        $userController->user();
         break;
     case "order":
         isset($_SESSION['id']) ? $orderController->createOrder($_SESSION['id'], $_SESSION['cart']) : $userController->login();

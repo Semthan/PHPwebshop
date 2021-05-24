@@ -29,15 +29,15 @@
         }
             
         private function orders(){
-                if($_SERVER['REQUEST_METHOD']==='POST'){
-                    $this->adminModel->changeOrderStatus($_POST['id']);  
-                    header("Refresh:0");
-                }
+            if($_SERVER['REQUEST_METHOD']==='POST'){
+                $this->adminModel->changeOrderStatus($_POST['id']);  
+                header("Refresh:0");
+            }
                 
-                $orders = $this->adminModel->fetchAllOrders();
-                $this->adminView->viewHeader("HEJ");
-                $this->adminView->viewAdminOrders($orders);
-                $this->adminView->viewFooter();
+            $orders = $this->adminModel->fetchAllOrders();
+            $this->adminView->viewHeader("HEJ");
+            $this->getAdminOrders($orders);
+            $this->adminView->viewFooter();
         }
             
         private function adminMenu(){
@@ -46,10 +46,16 @@
             $this->adminView->viewFooter();
         }
 
+
+        //view getters
         private function getAdminMenu(){
             $this->adminView->viewAdminMenu();
         }
 
+        public function getAdminOrders($orders){
+            $this->adminView->viewAdminOrders($orders);
+        }
+        
         private function editProduct(){  
             header("Location: ?page=editproduct&asignment=edit");
         }

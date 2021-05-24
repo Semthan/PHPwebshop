@@ -12,6 +12,29 @@ class UserController
         $this->view = $view;
     }
 
+    public function user(){   
+        $path = $_GET['path'] ?? "";
+            switch ($path) {
+                case "login":
+                    $this->login();
+                break; 
+                case "logout":
+                    $this->logout();
+                break; 
+                case "register":
+                    $this->registerUser();
+                break; 
+                case "update":
+                    $this->updateUser();
+                break; 
+                case "delete":
+                    $this->deleteUser();
+                case "order":
+                    $this->deleteUser();
+                break; 
+            };
+    }
+
     public function login()
     {
         $this->view->viewLogin();

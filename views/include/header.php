@@ -28,7 +28,7 @@
 
                         if (isset($_SESSION['id'])) {
                             echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
-                                    <a class='nav-link' href='?page=profile'>
+                                    <a class='nav-link' href='?page=user&path=update'>
                                         <h3>$_SESSION[name]</h3>
                                     </a>
                                   </li>";
@@ -46,18 +46,18 @@
                                     </a>
                                   </li>";
                             echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
-                                    <a class='nav-link' href='?page=logout'>
+                                    <a class='nav-link' href='?page=user&path=logout'>
                                         <h3>Log out</h3>
                                     </a>
                                   </li>";
                         } else {
                             echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
-                                        <a class='nav-link' href='?page=login'>
+                                        <a class='nav-link' href='?page=user&path=login'>
                                         <h3>Login</h3>
                                         </a>
                                   </li>";
                             echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
-                                        <a class='nav-link' href='?page=register'>
+                                        <a class='nav-link' href='?page=user&path=register'>
                                             <h3>Register</h3>
                                         </a>
                                   </li>";
