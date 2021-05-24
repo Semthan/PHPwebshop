@@ -22,11 +22,11 @@ $product?
                 <input type='text' name='description' placeholder='description' value='$description'>
                 <input type='hidden' name='product_id' value='$id'>
                 <select name='category_id' default='$category'>
-                    <option value='1'> Tröjor </option>
-                    <option value='3'> slipsar </option>
-                    <option value='4'> byxor </option>
+                    <option value='1'> Bedroom </option>
+                    <option value='2'> Kitchen </option>
+                    <option value='3'> Office </option>
                 </select>
-                <button type='submit' class='btn btn-primary'>Primary</button>
+                <button type='submit' class='btn btn-primary'>Create</button>
             </form>
          </div>
         HTML
@@ -40,11 +40,11 @@ $product?
                 <input type='text' name='img_src' placeholder='img'>
                 <input type='text' name='description' placeholder='description'>
                 <select name="category_id">
-                    <option value="1"> Tröjor </option>
-                    <option value="3"> slipsar </option>
-                    <option value="4"> byxor </option>
+                    <option value="1"> Bedroom </option>
+                    <option value="2"> Kitchen </option>
+                    <option value="3"> Office </option>
                 </select>
-                <button type='submit' class='btn btn-primary'>Primary</button>
+                <button type='submit' class='btn btn-primary'>Create</button>
             </form>
          </div>
         HTML;
