@@ -30,22 +30,10 @@ class Controller
         $this->getFooter();
     }
 
-    public function checkout()
-    {
-        $this->getHeader("Kassa");
-        $this->getFooter();
-    }
 
     public function showProfile()
     {
         $this->getHeader("//placeholder---användarens namn//");
-        $this->getFooter();
-    }
-
-    public function admin()
-    {
-        $this->getHeader("Admin");
-        $this->productController->productCards();
         $this->getFooter();
     }
 
@@ -60,7 +48,7 @@ class Controller
     {
         $category = $_GET['category'] ?? "Välkommen";
         $this->getHeader($category);
-        $this->productController->showAllProducts();
+        $this->productController->getAllProducts();
         $this->getFooter();
     }
 }

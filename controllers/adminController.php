@@ -3,27 +3,55 @@
 
     class AdminController {
 
-        private $view;
         private $adminView;
-        private $model; 
+        private $adminModel; 
 
-        public function __construct($model, $view, $adminView){
-            $this -> model = $model;
-            $this -> view = $view;
+        public function __construct($adminModel, $adminView,){
+            $this -> adminModel = $adminModel;
             $this -> adminView = $adminView;
 
         }
 
-        public function orders(){
-            if($_SERVER['REQUEST_METHOD']==='POST'){
-                $this->model->changeOrderStatus($_POST['id']);  
-                header("Refresh:0");
-            }
+        public function admin(){  
+            $path = $_GET['path'] ?? "";
+
+            switch ($path) {
+                case "orders":
+                    $this->orders();
+                    break;
+                case "editProduct":
+                    $this->editProduct();
+                        break;
+                default:
+                    $this->adminMenu();
+                    break;  
+            } 
+        }
             
-            $orders = $this->model->fetchAllOrders();
-            $this->view->viewHeader("HEJ");
-            $this->adminView->viewAdminOrders($orders);
-            $this->view->viewFooter();
+        private function orders(){
+                if($_SERVER['REQUEST_METHOD']==='POST'){
+                    $this->adminModel->changeOrderStatus($_POST['id']);  
+                    header("Refresh:0");
+                }
+                
+                $orders = $this->adminModel->fetchAllOrders();
+                $this->adminView->viewHeader("HEJ");
+                $this->adminView->viewAdminOrders($orders);
+                $this->adminView->viewFooter();
+        }
+            
+        private function adminMenu(){
+            $this->adminView->viewHeader("HEJ");
+            $this->getAdminMenu();
+            $this->adminView->viewFooter();
+        }
+
+        private function getAdminMenu(){
+            $this->adminView->viewAdminMenu();
+        }
+
+        private function editProduct(){  
+            header("Location: ?page=editproduct&asignment=edit");
         }
     }
 ?>

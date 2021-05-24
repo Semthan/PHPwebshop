@@ -1,16 +1,18 @@
 <?php
-echo "<pre>";
-$title = $product[0]["title"];
-$price = $product[0]["price"];
-$stock = $product[0]["stock"];
-$img = $product[0]["img_src"];
-$description = $product[0]["description"];
-$category = $product[0]["category_id"];
-$id = $product[0]["product_id"];
+if(isset($_GET['id'])){
+    $title = $product[0]["title"];
+    $price = $product[0]["price"];
+    $stock = $product[0]["stock"];
+    $img = $product[0]["img_src"];
+    $description = $product[0]["description"];
+    $id = $product[0]["product_id"];
+    $category = $product[0]["category_id"];
 
-echo "</pre>";
-    $product? 
-    $Form ="
+}
+
+$product? 
+
+    $Form =<<<HTML
         <div class='input-group mb-3'>
             <form class='input-group-prepend' method='post' action=''>
                 <input type='text' name='title' placeholder='title' value='$title'>
@@ -26,8 +28,8 @@ echo "</pre>";
                 </select>
                 <button type='submit' class='btn btn-primary'>Primary</button>
             </form>
-         </div>"
-        
+         </div>
+        HTML
     :
     $Form = <<<HTML
         <div class='input-group mb-3'>

@@ -21,11 +21,11 @@
             return $this->db->select($stmt);
         }
 
-        /* public function
-        public function fetch(){
-            $stmt = "SELECT * FROM orders";
-            return $this->db->select($stmt);
-        } */
+        public function fetchAllProducts()
+        {
+            $products = $this->db->select("SELECT * FROM products");
+            return $products;
+        }
     }
 
 ?>

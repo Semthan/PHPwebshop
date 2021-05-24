@@ -1,20 +1,30 @@
 <?php
 class ProductView
 {
-    public function allProducts($products)
+    public function viewHeader()
     {
-        echo "<a href='?product=add'>Add clothes </a>";
+        include_once("views/include/header.php");
+    }
+
+    public function viewFooter()
+    {
+        include_once("views/include/footer.php");
+    }
+
+    public function AdminViewAllProducts($products)
+    {
+
+        echo "<a href='?page=editproduct&asignment=add'>Add clothes </a>";
         echo "<div class='row'>";
         foreach ($products as $current) {
-            $product = "
-                    <div class='col-4'>
+            $html = <<<HTML
+                <div class='col-4'>
                     <p>$current[title]</p>
-                    <a href='?product=edit&id=$current[product_id]'> edit </a>
-                    <a href='?delete=$current[product_id]'> delete </a>
-                    </div>
-                    
-                ";
-            echo $product;
+                    <a href='?page=editproduct&asignment=edit&id=$current[product_id]'> edit </a>
+                    <a href='?page=editproduct&asignment=delete&id=$current[product_id]'> delete </a>
+                </div>
+                HTML;
+            echo $html;
         }
         echo "</div>";
     }
@@ -24,17 +34,16 @@ class ProductView
         include('views/include/products/productForm.php');
     }
 
-    public function showProducts($products)
+    public function customerViewProducts($products)
     {
-        
         foreach ($products as $current) {
             echo "<div class='card m-auto text-center' style='width: 10rem;'>
             <img src='$current[img_src]' class='card-img-bottom' alt='...'>
             <div class='card-body'>
                 <h5 class='card-title'>$current[title]</h5>
                 <p class='card-text'>$current[price]</p>
-                <a href='?page=addtobasket&id=$current[product_id]&index=true'><button class='btn btn-dark'>Add to cart</button></a>
-                <a href='?page=removefrombasket&id=$current[product_id]&index=true'><p>-</p></a>
+                <a href='?page=cart&path=add&id=$current[product_id]&index=true'><button class='btn btn-dark'>Add to cart</button></a>
+                <a href='?page=remove&id=$current[product_id]&index=true'><p>-</p></a>
             </div>
             </div>";
         }

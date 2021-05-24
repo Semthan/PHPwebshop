@@ -52,37 +52,21 @@ $controller        = new Controller($model, $view, $productController);
 
 $orderController = new OrderController($orderModel);
 $cartController  = new CartController($model, $cartView, $database, $productModel);
-$adminController   = new AdminController($adminModel, $view, $adminView);
+$adminController = new AdminController($adminModel, $adminView);
 
 $page = $_GET['page'] ?? "";
-$product = $_GET['product'] ?? "";
-
-if (isset($_GET['delete'])) $productModel->deleteProduct($_GET['delete']);
-//if(isset($_GET['edit'])) $productController->editProduct($_GET['edit']);
-
-switch ($product) {
-    case "add":
-        $productController->addProduct();
-        break;
-    case "edit":
-        $productController->editProduct($_GET['id']);
-        break;
-
-}
 
 switch ($page) {
-    case "details":
-        $controller->details();
-        break;
-    case "checkout":
-        $controller->checkout();
-        break;
     case "admin":
-        $_SESSION['admin'] ? $controller->admin() : $controller->error();
+        $_SESSION['admin'] ? $adminController->admin() : $controller->error();
         break;
-        case "adminorders":
-            $adminController->orders();
-            break;
+    case "editproduct":
+        $productController->edit();
+        break;
+    case "cart":
+        $cartController->cart2();
+
+        break;
     case "profile":
         $userController->updateUser();
         break;
@@ -95,20 +79,9 @@ switch ($page) {
     case "logout":
         $userController->logout();
         break;
-    case "addtobasket":
-        if(isset($_GET['cart'])){$cartController->addtobasket($_GET["id"],1,'index.php?page=cart');}
-        if(isset($_GET['index'])){$cartController->addtobasket($_GET["id"],1,'index.php');}
-        break;
-    case "removefrombasket":
-        if(isset($_GET['cart'])){$cartController->removeFromBasket($_GET["id"],1,'index.php?page=cart');}
-        if(isset($_GET['index'])){$cartController->removeFromBasket($_GET["id"],1, 'index.php');} 
-        break;
-    case "cart":
-        $cartController->cart();
-        break;
     case "order":
-        isset($_SESSION['id']) ? $orderController->createOrder($_SESSION['id'],$_SESSION['basket']) : $userController->login();
+        isset($_SESSION['id']) ? $orderController->createOrder($_SESSION['id'], $_SESSION['basket']) : $userController->login();
         break;
     default:
-        $controller->showProducts();
+        $productController->customerProducts();
 }

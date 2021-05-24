@@ -1,28 +1,79 @@
 <?php
     class ProductController{
-        private $model;
-        private $view;
+        private $productModel;
+        private $productView;
 
-        public function __construct($model, $view){
-            $this->model = $model;
-            $this->view = $view;
+        public function __construct($productModel, $productView){
+            $this->productModel = $productModel;
+            $this->productView = $productView;
             
         }
 
-        public function showAllProducts(){
-            $products = $this->model->fetchAllProducts();
-            $this->view->showProducts($products);
+        public function edit(){
+            $asignment = $_GET['asignment'] ?? "";
+            $id = $_GET['id'] ??  "";
+            switch ($asignment) {
+                case "edit":
+                    $this->editProduct($id);
+                    break;
+                case "add":
+                    $this->addProduct($id);
+                    break;
+                case "delete":
+                    $this->deleteProduct($id);
+                    break;
+                case "showproducts":
+                    $this->adminProducts();
+                    break;
+                default:
+                    $this->customerProducts();
+                    break;
+            };
         }
 
-        public function productCards(){
-            $products = $this->model->fetchAllProducts();
-            $this->view->allProducts($products);
-        }
+        public function productForm($id){
 
-        public function productCard(){
-            $product = $this->model->fetchOneProduct($_GET['id']);
+            if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+                $this->processForm("edit", $id);
+            }
+            else{
+                $this->productView->ViewHeader();
+                $this->getProductForm();
+                $this->productView->ViewFooter();
+            }
             
-            $this->view->productForm($product);
+        }
+        
+        public function adminProducts(){
+            $this->productView->ViewHeader();
+            $this->getAdminProducts();
+            $this->productView->ViewFooter();
+        }
+
+        public function customerProducts(){
+            $this->productView->ViewHeader();
+            $this->getCustomerProducts();
+            $this->productView->ViewFooter();
+        }
+
+        public function getAdminProducts(){
+            $products = $this->productModel->fetchAllProducts();
+            $this->productView->AdminViewAllProducts($products);
+        }
+        public function getCustomerProducts(){
+            $products = $this->productModel->fetchAllProducts();
+           $this->productView->customerViewProducts($products);
+        }
+
+        public function getProductForm(){
+            if(isset($_GET['id'])){
+                $product = $this->productModel->fetchOneProduct($_GET['id']);
+            }
+            isset($_GET['id'])?
+                $product = $this->productModel->fetchOneProduct($_GET['id'])
+                :
+                $product = "";
+            $this->productView->productForm($product);
         }
 
         public function processForm($toDo){
@@ -48,7 +99,7 @@
             ];
             
             if($toDo=="add"){
-                $this->model->addProduct($productData);
+                $this->productModel->addProduct($productData);
             }
             if($toDo=="edit"){  
                 $productData = [
@@ -62,7 +113,7 @@
                     
                 ];
                 //array_push($productData, ["id" => $id]);
-                $this->model->editProduct($productData, $id );
+                $this->productModel->editProduct($productData, $id );
             }
         }
 
@@ -70,18 +121,20 @@
             if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             $this->processForm("add");}
             else {
-                $this->view->productForm(null);
+                $this->productView->ViewHeader();
+                $this->productView->productForm(null);
+                $this->productView->ViewFooter();
+
             }
         }
-        public function editProduct($id){
 
+        public function editProduct($id){
             if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                 $this->processForm("edit", $id);
             }
-                else{
-
-                    $this->productCard();
-                }
+            else{
+                $this->productForm($id);
+            }
                         
         }
 
@@ -91,6 +144,10 @@
             $text = htmlspecialchars($text);
     
             return $text;
+        }
+
+        private function deleteProduct($id){
+            $this->productModel->deleteProduct($id);
         }
     
     }

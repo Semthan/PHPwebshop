@@ -4,7 +4,6 @@ class CartController
 
     private $productModel;
     private $db;
-    private $model;
     private $view;
 
     public function __construct($model, $view, $database, $productModel)
@@ -15,7 +14,7 @@ class CartController
         $this->productModel = $productModel;
     }
 
-    public function removeFromBasket($product_id, $amount, $path){
+    public function removeFromBasket($product_id, $amount){
         $basket = $_SESSION['basket'];
 
         foreach ($basket as $key => $item) {
@@ -35,11 +34,11 @@ class CartController
 
         $_SESSION['basket'] = $basket;
         
-        header('Location:'.$path);
+        header("location: index.php");
 
     }
 
-    public function addToBasket($product_id, $amount, $path)
+    public function addToCart($product_id, $amount, $path)
         {
     
             $array = [];
@@ -69,16 +68,16 @@ class CartController
                     $product = ['id' => $product_id, 'amount' => $amount];
                     array_push($basket, $product);
                 }
-                $_SESSION['basket'] = $basket;
-                
-                
+                $_SESSION['basket'] = $basket; 
             }
-            header('Location:'.$path);
+            
+            header("location:". $path);
     
             $stmt = "UPDATE products SET stock = stock -$amount WHERE product_id=$product_id";
     
             $this->db->update($stmt);
         }
+    
     
     public function cart(){
         $productData = [];
@@ -101,6 +100,24 @@ class CartController
 
             $this->db->update($stmt, $inputParams);
         }
+    }
+
+    public function cart2(){
+        $path = $_GET['path'] ?? "";
+        $id = $_GET['id'] ?? "";
+        ECHO "hej";
+
+        switch ($path) {
+            case "add":
+                $this->addToCart($id, 1, "index.php");
+                break;
+            case "remove":
+            //$this->addToCart($id, 1, "index.php?");
+                    break;
+            default:
+                $this->cart();
+            break;  
+        } 
     }
 }
 

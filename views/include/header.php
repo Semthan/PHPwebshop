@@ -34,7 +34,7 @@
                                   </li>";
                                   if($_SESSION['admin']){
                                       echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
-                                              <a class='nav-link' href='?page=adminorders'>
+                                              <a class='nav-link' href='?page=admin&path=orders'>
                                                   <h3>Orders</h3>
                                               </a>
                                             </li>";
