@@ -27,7 +27,7 @@
                     
                     <form method='POST' action=''>
                         <input type='hidden' value='$id' name='id'>
-                        <button type='submit' class='btn btn-primary' value=''>Primary</button></a>
+                        <button type='submit' class='btn btn-primary' value=''>SEND</button></a>
                     </form>
                 </div>
                     ";
@@ -41,7 +41,7 @@
             $html = <<<HTML
             <div>
                 <a href="?page=admin&path=orders"> ORDERS</a>
-                <a href='?page=editproduct&asignment=showproducts'> EDIT ORDERS</a> 
+                <a href='?page=editproduct&asignment=showproducts'> EDIT PRODUCTS</a> 
             </div>
             
             HTML;
@@ -50,14 +50,14 @@
 
         public function AdminViewAllProducts($products){
             
-            echo "<a href='?page=editproduct&asignment=add'>Add clothes </a>";
+            echo "<a href='?page=editproduct&asignment=add'>Add new </a>";
             echo "<div class='row'>";
             foreach ($products as $current) {
                 $html = <<<HTML
                 <div class='col-4'>
                     <p>$current[title]</p>
                     <a href='?page=editproduct&asignment=edit&id=$current[product_id]'> edit </a>
-                    <a href='?delete=$current[product_id]'> delete </a>
+                    <a href='?delete=$current[product_id]'> remove </a>
                 </div>
                 HTML;
                 echo $html;
