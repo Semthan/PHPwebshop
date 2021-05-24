@@ -6,24 +6,24 @@ class CartController
     private $db;
     private $view;
 
-    public function __construct($model, $view, $database, $productModel)
+    public function __construct($model, $cartView, $database, $productModel)
     {
         $this->model = $model;
-        $this->view = $view;
+        $this->cartView = $cartView;
         $this->db = $database;
         $this->productModel = $productModel;
     }
 
-    public function removeFromBasket($product_id, $amount){
-        $basket = $_SESSION['basket'];
+    public function removeFromcart($product_id, $amount){
+        $cart = $_SESSION['cart'];
 
-        foreach ($basket as $key => $item) {
+        foreach ($cart as $key => $item) {
             if ($item['id'] === $product_id) {
                 if($item['amount'] == 1){
-                    unset($basket[$key]);
+                    unset($cart[$key]);
                 }else{
                     $item['amount'] -= $amount;
-                    $basket[$key] = $item;
+                    $cart[$key] = $item;
                 }
             
             }
@@ -32,61 +32,64 @@ class CartController
         $stmt = "UPDATE products SET stock = stock +$amount WHERE product_id=$product_id";
         $this->db->update($stmt);
 
-        $_SESSION['basket'] = $basket;
+        $_SESSION['cart'] = $cart;
         
-        header("location: index.php");
+        isset($_GET['index'])?header("location: index.php"):header("location: index.php?page=cart");
+
+       
 
     }
 
-    public function addToCart($product_id, $amount, $path)
-        {
-    
-            $array = [];
-    
-    
-            if (empty($_SESSION['basket'])) {
-                $basket = $_SESSION['basket'];
-                $product = ['id' => $product_id, 'amount' => $amount];
-                array_push($basket, $product);
-                $_SESSION['basket'] = $basket;
-            } else {
-                $basket = $_SESSION['basket'];
-    
-                foreach ($basket as $item) {
-                    array_push($array, $item['id']);
-                }
-                if (in_array($product_id, $array)) {
-                    foreach ($basket as $key => $item) {
-    
-                        if ($item['id'] === $product_id) {
-                            $item['amount'] += $amount;
-                            $basket[$key] = $item;
-                        }
-                    }
-                } else {
-    
-                    $product = ['id' => $product_id, 'amount' => $amount];
-                    array_push($basket, $product);
-                }
-                $_SESSION['basket'] = $basket; 
+    public function addToCart($product_id, $amount){
+        $array = [];
+        if (empty($_SESSION['cart'])) {
+            $cart = $_SESSION['cart'];
+            $product = ['id' => $product_id, 'amount' => $amount];
+            array_push($cart, $product);
+            $_SESSION['cart'] = $cart;
+        } else {
+            $cart = $_SESSION['cart'];
+
+            foreach ($cart as $item) {
+                array_push($array, $item['id']);
             }
-            
-            header("location:". $path);
-    
-            $stmt = "UPDATE products SET stock = stock -$amount WHERE product_id=$product_id";
-    
-            $this->db->update($stmt);
+            if (in_array($product_id, $array)) {
+                foreach ($cart as $key => $item) {
+
+                    if ($item['id'] === $product_id) {
+                        $item['amount'] += $amount;
+                        $cart[$key] = $item;
+                    }
+                }
+            } else {
+
+                $product = ['id' => $product_id, 'amount' => $amount];
+                array_push($cart, $product);
+            }
+            $_SESSION['cart'] = $cart; 
         }
+        
+        isset($_GET['index'])?header("location: index.php"):header("location: index.php?page=cart");
+            
+        $stmt = "UPDATE products SET stock = stock -$amount WHERE product_id=$product_id";
+
+        $this->db->update($stmt);
+    }
     
-    
-    public function cart(){
+    public function showCart(){
         $productData = [];
-        foreach($_SESSION["basket"] as $item){
+        foreach($_SESSION["cart"] as $item){
             $product = $this->productModel->fetchOneProduct($item["id"]);
             array_push($productData, $product);
         }
+        $this->cartView->viewHeader();
+        $this->getCartProducts($productData);
+        $this->cartView->viewFooter();
+    }
 
-        $this->view->cartProducts($_SESSION["basket"],  $productData);
+    public function getCartProducts($productData){
+        $this->cartView->viewCartProducts($_SESSION["cart"],  $productData);
+
     }
 
     public function updateStockOnSessionEnd($cart){
@@ -102,7 +105,7 @@ class CartController
         }
     }
 
-    public function cart2(){
+    public function cart(){
         $path = $_GET['path'] ?? "";
         $id = $_GET['id'] ?? "";
         ECHO "hej";
@@ -112,10 +115,12 @@ class CartController
                 $this->addToCart($id, 1, "index.php");
                 break;
             case "remove":
-            //$this->addToCart($id, 1, "index.php?");
+            $this->removeFromcart($id, 1);
+                    break;
+            case "showcart":
+            $this->showCart();
                     break;
             default:
-                $this->cart();
             break;  
         } 
     }

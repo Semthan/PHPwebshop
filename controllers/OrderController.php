@@ -10,10 +10,10 @@ class OrderController
     }
 
 
-    public function createOrder($user_id, $basket = [])
+    public function createOrder($user_id, $cart = [])
     {
-        $this->model->createOrderInDb($user_id, $basket);
-        $_SESSION['basket'] = [];
+        $this->model->createOrderInDb($user_id, $cart);
+        $_SESSION['cart'] = [];
         header('location: index.php');
     }
 

@@ -22,7 +22,7 @@
 
                         <?php
                         $count = 0;
-                        foreach($_SESSION['basket'] as $current){
+                        foreach ($_SESSION['cart'] as $current) {
                             $count += $current['amount'];
                         }
 
@@ -32,16 +32,15 @@
                                         <h3>$_SESSION[name]</h3>
                                     </a>
                                   </li>";
-                                  if($_SESSION['admin']){
-                                      echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
+                            if ($_SESSION['admin']) {
+                                echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
                                               <a class='nav-link' href='?page=admin&path=orders'>
                                                   <h3>Orders</h3>
                                               </a>
                                             </li>";
-                                  
-                                    };
+                            };
                             echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
-                                    <a class='nav-link' href='?page=cart'>
+                                    <a class='nav-link' href='?page=cart&path=showcart'>
                                         <i class='fas fa-shopping-cart'></i>
                                         <p>$count</p>
                                     </a>

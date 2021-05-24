@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-!isset($_SESSION["basket"]) && $_SESSION["basket"] = [];
+!isset($_SESSION["cart"]) && $_SESSION["cart"] = [];
 
 
 //Models
@@ -64,8 +64,7 @@ switch ($page) {
         $productController->edit();
         break;
     case "cart":
-        $cartController->cart2();
-
+        $cartController->cart();
         break;
     case "profile":
         $userController->updateUser();
@@ -80,7 +79,7 @@ switch ($page) {
         $userController->logout();
         break;
     case "order":
-        isset($_SESSION['id']) ? $orderController->createOrder($_SESSION['id'], $_SESSION['basket']) : $userController->login();
+        isset($_SESSION['id']) ? $orderController->createOrder($_SESSION['id'], $_SESSION['cart']) : $userController->login();
         break;
     default:
         $productController->customerProducts();

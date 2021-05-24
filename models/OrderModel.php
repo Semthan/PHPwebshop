@@ -1,22 +1,25 @@
 <?php
 
-class OrderModel{
-    
+class OrderModel
+{
+
     private $db;
 
-    public function __construct($database){
+    public function __construct($database)
+    {
         $this->db = $database;
     }
 
-    public function createOrderInDb($user_id, $basket){
+    public function createOrderInDb($user_id, $cart)
+    {
         $stmt = "INSERT INTO orders (order_id, users_id, order_date, shipped)
                  VALUES (NULL, :id, CURRENT_TIMESTAMP, 0)";
 
-        $id = [":id"=>$user_id];
+        $id = [":id" => $user_id];
 
         $lastInsertId = $this->db->insert($stmt, $id);
 
-        foreach($basket as $item){
+        foreach ($cart as $item) {
             $stmt = "INSERT INTO orders_has_products (order_id, product_id, amount)
                      VALUES (:order_id, :product_id, :amount)";
 
@@ -30,7 +33,8 @@ class OrderModel{
         }
     }
 
-    public function deleteOrderInDb($order_id){
+    public function deleteOrderInDb($order_id)
+    {
         $this->updateStock($order_id);
 
         $stmt1 = "DELETE FROM orders_has_products WHERE order_id = :id";
@@ -42,14 +46,15 @@ class OrderModel{
         $this->db->delete($stmt2, $id);
     }
 
-    private function updateStock($order_id){
+    private function updateStock($order_id)
+    {
         $stmt = "SELECT * FROM orders_has_products WHERE order_id = :id";
 
         $id = [":id" => $order_id];
 
         $products = $this->db->select($stmt, $id);
 
-        foreach($products as $item){
+        foreach ($products as $item) {
             $stmt = "UPDATE products SET stock = stock + :amount WHERE product_id = :id";
 
             $inputParams = [
