@@ -7,12 +7,25 @@
             $this->db = $database;
         }
 
-        public function deleteProduct($productId){
+        // public function deleteProduct($productId){
             
-            $statement = "DELETE FROM products WHERE product_id = :id";
-            $this->db->delete($statement, ["id"=>$productId]);
+        //     $statement = "DELETE FROM products WHERE product_id = :id";
+        //     $this->db->delete($statement, ["id"=>$productId]);
             
-            header('Location: ?editproduct&asignment=edit');
+        //     header('Location: ?editproduct&asignment=edit');
+        // }
+        
+        public function setAvailabilityToFalse($productId){
+            
+            $stmt = "UPDATE products SET available = 0 WHERE product_id = :id";
+            $this->db->update($stmt, ["id"=>$productId]);
+            
+            //header('Location: ?editproduct&asignment=edit');
+        }
+
+        public function getStock($productId){
+            $stmt = "SELECT stock FROM products WHERE product_id = :id";
+            return $this->db->select($stmt, ["id" => $productId]);
         }
         
         public function addProduct($params){

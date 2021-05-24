@@ -26,6 +26,7 @@
             $products = $this->db->select("SELECT * FROM products");
             return $products;
         }
+        
     }
 
 ?>

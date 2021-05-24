@@ -6,7 +6,7 @@
         private $adminView;
         private $adminModel; 
 
-        public function __construct($adminModel, $adminView,){
+        public function __construct($adminModel, $adminView){
             $this -> adminModel = $adminModel;
             $this -> adminView = $adminView;
 
@@ -29,15 +29,15 @@
         }
             
         private function orders(){
-                if($_SERVER['REQUEST_METHOD']==='POST'){
-                    $this->adminModel->changeOrderStatus($_POST['id']);  
-                    header("Refresh:0");
-                }
-                
-                $orders = $this->adminModel->fetchAllOrders();
-                $this->adminView->viewHeader("HEJ");
-                $this->adminView->viewAdminOrders($orders);
-                $this->adminView->viewFooter();
+            if($_SERVER['REQUEST_METHOD']==='POST'){
+                $this->adminModel->changeOrderStatus($_POST['id']);  
+                header("Refresh:0");
+            }
+            
+            $orders = $this->adminModel->fetchAllOrders();
+            $this->adminView->viewHeader("HEJ");
+            $this->adminView->viewAdminOrders($orders);
+            $this->adminView->viewFooter();
         }
             
         private function adminMenu(){

@@ -91,7 +91,14 @@ class UserModel
 
     public function updateStockOnLogout($cart){
         foreach($cart as $item){
-            $stmt = "UPDATE products SET stock = stock + :amount WHERE product_id = :id";
+            $stock = $this->getStock($item['id']);
+
+            if($stock[0][0]<1){
+                $stmt = "UPDATE products SET stock = stock + :amount, available = 1 WHERE product_id = :id";
+            }else{
+                $stmt = "UPDATE products SET stock = stock + :amount WHERE product_id = :id";
+            }
+
 
             $inputParams = [
                 ":amount" => $item['amount'],
@@ -100,5 +107,10 @@ class UserModel
 
             $this->db->update($stmt, $inputParams);
         }
+    }
+
+    public function getStock($productId){
+        $stmt = "SELECT stock FROM products WHERE product_id = :id";
+        return $this->db->select($stmt, ["id" => $productId]);
     }
 }

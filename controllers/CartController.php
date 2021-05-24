@@ -40,42 +40,48 @@ class CartController
 
     public function addToCart($product_id, $amount, $path)
         {
+
+            $stock = $this->productModel->getStock($product_id);
     
             $array = [];
     
-    
-            if (empty($_SESSION['basket'])) {
-                $basket = $_SESSION['basket'];
-                $product = ['id' => $product_id, 'amount' => $amount];
-                array_push($basket, $product);
-                $_SESSION['basket'] = $basket;
-            } else {
-                $basket = $_SESSION['basket'];
-    
-                foreach ($basket as $item) {
-                    array_push($array, $item['id']);
-                }
-                if (in_array($product_id, $array)) {
-                    foreach ($basket as $key => $item) {
-    
-                        if ($item['id'] === $product_id) {
-                            $item['amount'] += $amount;
-                            $basket[$key] = $item;
-                        }
-                    }
-                } else {
-    
+            if($stock[0][0] > 0){
+                if (empty($_SESSION['basket'])) {
+                    $basket = $_SESSION['basket'];
                     $product = ['id' => $product_id, 'amount' => $amount];
                     array_push($basket, $product);
+                    $_SESSION['basket'] = $basket;
+                } else {
+                    $basket = $_SESSION['basket'];
+        
+                    foreach ($basket as $item) {
+                        array_push($array, $item['id']);
+                    }
+                    if (in_array($product_id, $array)) {
+                        foreach ($basket as $key => $item) {
+        
+                            if ($item['id'] === $product_id) {
+                                $item['amount'] += $amount;
+                                $basket[$key] = $item;
+                            }
+                        }
+                    } else {
+        
+                        $product = ['id' => $product_id, 'amount' => $amount];
+                        array_push($basket, $product);
+                    }
+                    $_SESSION['basket'] = $basket; 
                 }
-                $_SESSION['basket'] = $basket; 
+                
+                header("location:". $path);
+        
+                $stmt = "UPDATE products SET stock = stock -$amount WHERE product_id=$product_id";
+        
+                $this->db->update($stmt);
+            }else{
+                $this->productModel->setAvailabilityToFalse($product_id);
+                header("location:". $path);
             }
-            
-            header("location:". $path);
-    
-            $stmt = "UPDATE products SET stock = stock -$amount WHERE product_id=$product_id";
-    
-            $this->db->update($stmt);
         }
     
     

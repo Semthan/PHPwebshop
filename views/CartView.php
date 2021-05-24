@@ -14,6 +14,7 @@ class CartView
             $id = $products[$x][0]['product_id'];
             $price = $products[$x][0]['price'];
             $img = $products[$x][0]['img_src'];
+            $available = $products[$x][0]['available'];
             $amount = $cart[$x]['amount'];
 
 
@@ -24,11 +25,18 @@ class CartView
                             <h5 class='card-title'>$title</h5>
                             <p class='card-text'>$price</p>
                             <p class='card-text'>$amount</p>
-                            <p class='card-text'>$id</p>
-                            <a href='?page=addToCart&id=$id&cart=true'><p>+</p></a>
+                            <p class='card-text'>$id</p>";
+
+            if($available){
+                $productCard .= "
+                    <a href='?page=addToCart&id=$id&cart=true'><p>+</p></a>
+                ";
+            }
+
+            $productCard .= "
                             <a href='?page=removefrombasket&id=$id&cart=true'><p>-</p></a>
-                            </div>
-                    </div>";;
+                        </div>
+                    </div>";
 
             echo $productCard;
         }

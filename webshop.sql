@@ -71,7 +71,8 @@ CREATE TABLE `products` (
   `stock` int(11) NOT NULL,
   `img_src` varchar(255) COLLATE utf8mb4_swedish_ci NOT NULL,
   `category_id` int(11) NOT NULL,
-  `description` varchar(450) COLLATE utf8mb4_swedish_ci NOT NULL
+  `description` varchar(450) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `available` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 -- --------------------------------------------------------
