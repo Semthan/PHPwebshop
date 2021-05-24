@@ -38,7 +38,13 @@
                                               <a class='nav-link' href='?page=admin&path=orders'>
                                                   <h3>Orders</h3>
                                               </a>
-                                            </li>";
+                                        </li>
+                                        <li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
+                                              <a class='nav-link' href='?page=editproduct&asignment=showproducts'>
+                                                  <h3>edit products</h3>
+                                              </a>
+                                        </li>
+                                            ";
                             };
                             echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
                                     <a class='nav-link' href='?page=cart&path=showcart'>
@@ -64,8 +70,9 @@
                                   </li>";
 
                             echo "<li class='nav-item' data-toggle='collapse' data-target='.navbar-collapse.show'>
-                                    <a class='nav-link' href='#'>
-                                        <h3>Cart</h3>
+                                    <a class='nav-link' href='?page=cart&path=showcart'>
+                                        <i class='fas fa-shopping-cart'></i>
+                                        <p>$count</p>
                                     </a>
                                   </li>";
                         }

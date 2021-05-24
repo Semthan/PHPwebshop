@@ -9,7 +9,6 @@
         public function __construct($adminModel, $adminView){
             $this -> adminModel = $adminModel;
             $this -> adminView = $adminView;
-
         }
 
         public function admin(){  

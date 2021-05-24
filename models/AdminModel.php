@@ -12,7 +12,6 @@
                 ":shipped" => 1,
                 ":id" => $order_id
             ];
-        
             $this->db->update($stmt, $params);
         }
 
