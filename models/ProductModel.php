@@ -15,12 +15,9 @@
         //     header('Location: ?editproduct&asignment=edit');
         // }
         
-        public function setAvailabilityToFalse($productId){
-            
+        public function setAvailabilityToFalse($productId){            
             $stmt = "UPDATE products SET available = 0 WHERE product_id = :id";
             $this->db->update($stmt, ["id"=>$productId]);
-            
-            //header('Location: ?editproduct&asignment=edit');
         }
 
         public function getStock($productId){
