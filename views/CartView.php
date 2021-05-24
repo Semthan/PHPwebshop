@@ -19,6 +19,7 @@ class CartView
             $id = $products[$x][0]['product_id'];
             $price = $products[$x][0]['price'];
             $img = $products[$x][0]['img_src'];
+            $available = $products[$x][0]['available'];
             $amount = $cart[$x]['amount'];
 
             $html = <<<HTML

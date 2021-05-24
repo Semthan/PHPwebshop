@@ -138,6 +138,10 @@
                         
         }
 
+        private function deleteProduct($id){
+            $this->productModel->setAvailabilityToFalse($id);
+        }
+        
         private function sanatize($text){
             $text = trim($text);
             $text = stripslashes($text);
@@ -146,8 +150,5 @@
             return $text;
         }
 
-        private function deleteProduct($id){
-            $this->productModel->deleteProduct($id);
-        }
     
     }

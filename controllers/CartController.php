@@ -57,41 +57,51 @@ class CartController
         isset($_GET['index']) ? header("location: index.php") : header("location: index.php?page=cart&path=showcart");
     }
 
-    public function addToCart($product_id, $amount)
+    public function addToCart($product_id, $amount, $path)
     {
+
+        $stock = $this->productModel->getStock($product_id);
+
         $array = [];
-        if (empty($_SESSION['cart'])) {
-            $cart = $_SESSION['cart'];
-            $product = ['id' => $product_id, 'amount' => $amount];
-            array_push($cart, $product);
-            $_SESSION['cart'] = $cart;
-        } else {
-            $cart = $_SESSION['cart'];
 
-            foreach ($cart as $item) {
-                array_push($array, $item['id']);
-            }
-            if (in_array($product_id, $array)) {
-                foreach ($cart as $key => $item) {
-
-                    if ($item['id'] === $product_id) {
-                        $item['amount'] += $amount;
-                        $cart[$key] = $item;
-                    }
-                }
-            } else {
-
+        if($stock[0][0] > 0){
+            if (empty($_SESSION['cart'])) {
+                $cart = $_SESSION['cart'];
                 $product = ['id' => $product_id, 'amount' => $amount];
                 array_push($cart, $product);
+                $_SESSION['cart'] = $cart;
+            } else {
+                $cart = $_SESSION['cart'];
+    
+                foreach ($cart as $item) {
+                    array_push($array, $item['id']);
+                }
+                if (in_array($product_id, $array)) {
+                    foreach ($cart as $key => $item) {
+    
+                        if ($item['id'] === $product_id) {
+                            $item['amount'] += $amount;
+                            $cart[$key] = $item;
+                        }
+                    }
+                } else {
+    
+                    $product = ['id' => $product_id, 'amount' => $amount];
+                    array_push($cart, $product);
+                }
+                $_SESSION['cart'] = $cart; 
+                }
+                
+                isset($_GET['index']) ? header("location: index.php") : header("location: index.php?page=cart&path=showcart");
+
+                $stmt = "UPDATE products SET stock = stock -$amount WHERE product_id=$product_id";
+        
+                $this->db->update($stmt);
+            }else{
+                $this->productModel->setAvailabilityToFalse($product_id);
+                isset($_GET['index']) ? header("location: index.php") : header("location: index.php?page=cart&path=showcart");
             }
-            $_SESSION['cart'] = $cart;
-        }
-
-        isset($_GET['index']) ? header("location: index.php") : header("location: index.php?page=cart&path=showcart");
-
-        $stmt = "UPDATE products SET stock = stock -$amount WHERE product_id=$product_id";
-
-        $this->db->update($stmt);
+        
     }
 
     public function showCart()
