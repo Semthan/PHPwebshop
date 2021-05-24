@@ -88,7 +88,7 @@ class CartController
             $_SESSION['cart'] = $cart; 
         }
         
-        isset($_GET['index'])?header("location: index.php"):header("location: index.php?page=cart");
+        isset($_GET['index'])?header("location: index.php"):header("location: index.php?page=cart&path=showcart");
             
         $stmt = "UPDATE products SET stock = stock -$amount WHERE product_id=$product_id";
 
@@ -125,6 +125,3 @@ class CartController
     }
 
 }
-
-
-    ?>
