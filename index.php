@@ -29,7 +29,7 @@ require_once("controllers/ProductController.php");
 require_once("controllers/CartController.php");
 require_once("controllers/AdminController.php");
 
-$database       = new Database("webshop", "root", "root");
+$database       = new Database("webshop", "Harald", "password");
 
 //Models
 $model          = new Model($database);
@@ -54,7 +54,8 @@ $orderController = new OrderController($orderModel);
 $cartController  = new CartController($model, $cartView, $database, $productModel);
 $adminController = new AdminController($adminModel, $adminView);
 
-$page = $_GET['page'] ?? "";
+$url = getUrl();
+$page = $url[0] ?? "";
 
 switch ($page) {
     case "admin":
@@ -84,4 +85,15 @@ switch ($page) {
         break;
     default:
         $productController->customerProducts();
+}
+
+function getUrl()
+{
+    if (isset($_GET['page'])) {
+        $url = rtrim($_GET['page'], '/');
+        $url = filter_var($url, FILTER_SANITIZE_URL);
+        $url = explode('/', $url);
+        //print_r($url);
+        return $url;
+    }
 }

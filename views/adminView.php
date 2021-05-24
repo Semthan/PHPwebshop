@@ -41,7 +41,7 @@
             $html = <<<HTML
             <div>
                 <a href="?page=admin&path=orders"> ORDERS</a>
-                <a href='?page=editproduct&asignment=showproducts'> EDIT ORDERS</a> 
+                <a href='?page=editproduct&assignment=showproducts'> EDIT ORDERS</a> 
             </div>
             
             HTML;
@@ -66,5 +66,3 @@
         }
 
     }
-
-?>

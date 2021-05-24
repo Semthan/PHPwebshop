@@ -103,7 +103,8 @@ class CartController
     }
 
     public function cart2(){
-        $path = $_GET['path'] ?? "";
+        $url = getURL();
+        $path = $url[0] ?? "";
         $id = $_GET['id'] ?? "";
         ECHO "hej";
 
@@ -119,7 +120,14 @@ class CartController
             break;  
         } 
     }
+    function getUrl()
+    {
+        if (isset($_GET['path'])) {
+            $url = rtrim($_GET['path'], '/');
+            $url = filter_var($url, FILTER_SANITIZE_URL);
+            $url = explode('/', $url);
+            //print_r($url);
+            return $url;
+        }
+    }
 }
-
-
-    ?>
